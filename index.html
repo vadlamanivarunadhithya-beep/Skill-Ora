@@ -1,0 +1,4635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Skill-Oraa</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Righteous&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   GLOBAL STYLES
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --purple: #6C3CE1;
+    --purple2: #667eea;
+    --purple3: #764ba2;
+    --gold: #ffd700;
+    --red: #ff3b30;
+    --bg: #08080f;
+    --card: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.1);
+    --text: #ffffff;
+    --muted: #a9a9b8;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(108,60,225,0.15), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(118,75,162,0.12), transparent 30%),
+        var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button,
+input,
+textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #050509;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#intro.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-title {
+    font-family: 'Righteous', cursive;
+    font-size: clamp(55px, 12vw, 140px);
+    background: linear-gradient(
+        90deg,
+        #ffd700,
+        #ff3b30,
+        #ffd700
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation:
+        gradientMove 2s linear infinite,
+        introPulse 1.5s ease forwards;
+    transform: scale(0);
+}
+
+@keyframes gradientMove {
+    to {
+        background-position: 200% center;
+    }
+}
+
+@keyframes introPulse {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.loading-container {
+    width: min(400px, 70%);
+    margin-top: 35px;
+}
+
+.loading-bar {
+    height: 5px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ffd700, #ff3b30);
+    animation: loading 2.5s linear forwards;
+}
+
+@keyframes loading {
+    to {
+        width: 100%;
+    }
+}
+
+.loading-text {
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+#authScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 430px;
+    padding: 40px;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    backdrop-filter: blur(25px);
+    box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+    animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-logo {
+    text-align: center;
+    font-family: 'Righteous';
+    font-size: 42px;
+    background: linear-gradient(90deg, #ffd700, #ff3b30);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 16px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    outline: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--purple2);
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.12);
+}
+
+.primary-btn {
+    border: none;
+    padding: 15px;
+    border-radius: 13px;
+    color: white;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(108,60,225,0.35);
+}
+
+.auth-toggle {
+    text-align: center;
+    color: var(--muted);
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.auth-toggle span {
+    color: #9b7cff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.auth-error {
+    color: #ff6b6b;
+    font-size: 13px;
+    text-align: center;
+    min-height: 18px;
+}
+
+.demo-account {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+#app {
+    min-height: 100vh;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 5%;
+    background: rgba(8,8,15,0.8);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+}
+
+.logo {
+    font-family: 'Righteous';
+    font-size: 28px;
+    background: linear-gradient(90deg, #ffd700, #ff3b30);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.display-name {
+    font-weight: 700;
+}
+
+.header-btn {
+    position: relative;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.header-btn:hover {
+    background: rgba(255,255,255,0.12);
+}
+
+.badge {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: #ff3b30;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard {
+    width: min(1200px, 92%);
+    margin: 30px auto;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h1 {
+    font-size: clamp(25px, 4vw, 38px);
+}
+
+.welcome p {
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+.xp-card {
+    padding: 25px;
+    border-radius: 22px;
+    background: linear-gradient(
+        135deg,
+        rgba(108,60,225,0.25),
+        rgba(102,126,234,0.08)
+    );
+    border: 1px solid rgba(108,60,225,0.3);
+    margin-bottom: 20px;
+}
+
+.xp-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.level-badge {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    color: #16100a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.xp-info {
+    flex: 1;
+}
+
+.xp-info h3 {
+    margin-bottom: 5px;
+}
+
+.xp-text {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.xp-progress {
+    height: 10px;
+    background: rgba(0,0,0,0.35);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.xp-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ffd700, #ff8c00);
+    border-radius: inherit;
+    transition: width 0.7s ease;
+}
+
+/* STATS */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    padding: 20px;
+    border-radius: 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.stat-icon {
+    font-size: 25px;
+}
+
+.stat-value {
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 7px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* TABS */
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    padding: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    margin-bottom: 25px;
+    overflow-x: auto;
+}
+
+.tab {
+    flex: 1;
+    min-width: 120px;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.tab.active {
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    color: white;
+}
+
+.tab-content {
+    animation: fadeContent 0.4s ease;
+}
+
+@keyframes fadeContent {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   GENERAL SECTION
+========================================================= */
+
+.section-card {
+    padding: 25px;
+    border-radius: 22px;
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+
+.section-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.small-btn {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.05);
+    color: white;
+    padding: 9px 14px;
+    border-radius: 9px;
+}
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.calendar-nav button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: white;
+    border-radius: 10px;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+.calendar-weekdays div {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 8px;
+}
+
+.calendar-day {
+    min-height: 75px;
+    padding: 9px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid transparent;
+    cursor: pointer;
+    position: relative;
+    transition: 0.25s;
+}
+
+.calendar-day:hover {
+    border-color: var(--purple2);
+    transform: translateY(-2px);
+}
+
+.calendar-day.other {
+    opacity: 0.25;
+}
+
+.calendar-day.today {
+    border-color: #ffd700;
+    background: rgba(255,215,0,0.08);
+}
+
+.calendar-day.selected {
+    background: rgba(108,60,225,0.35);
+    border-color: var(--purple2);
+}
+
+.activity-dot {
+    position: absolute;
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: #6C3CE1;
+    border-radius: 50%;
+}
+
+.selected-date-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.day-task {
+    padding: 12px;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+}
+
+/* =========================================================
+   PLANNER
+========================================================= */
+
+.task-input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.task-input-row input {
+    flex: 1;
+    padding: 14px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    color: white;
+    outline: none;
+}
+
+.filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 13px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+}
+
+.filter-btn.active {
+    background: var(--purple);
+    color: white;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    border-radius: 13px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+}
+
+.task-check {
+    width: 21px;
+    height: 21px;
+    accent-color: var(--purple);
+    cursor: pointer;
+}
+
+.task-text {
+    flex: 1;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: #777;
+}
+
+.task-date {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.delete-btn {
+    border: none;
+    background: transparent;
+    color: #ff6b6b;
+    font-size: 18px;
+}
+
+/* =========================================================
+   STUDY LOG
+========================================================= */
+
+.study-textarea {
+    width: 100%;
+    min-height: 150px;
+    resize: vertical;
+    padding: 15px;
+    color: white;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    outline: none;
+    margin-bottom: 12px;
+}
+
+.logs {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.log-item {
+    padding: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+}
+
+.log-meta {
+    font-size: 11px;
+    color: #9b7cff;
+    margin-bottom: 7px;
+}
+
+.log-text {
+    color: #ddd;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.collection-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-count {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+}
+
+.collection-card {
+    min-height: 260px;
+    border-radius: 18px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.15),
+            rgba(255,255,255,0.03)
+        );
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+    transition: 0.35s;
+}
+
+.collection-card:hover {
+    transform: translateY(-8px) rotateX(4deg);
+}
+
+.card-rarity {
+    align-self: flex-end;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 5px 9px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.common {
+    background: #777;
+}
+
+.rare {
+    background: #2779ff;
+}
+
+.epic {
+    background: #9b3cff;
+}
+
+.legendary {
+    background: linear-gradient(90deg, #ffd700, #ff8c00);
+    color: #201500;
+}
+
+.card-avatar {
+    font-size: 65px;
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4));
+}
+
+.card-name {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.card-sport {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   CARD REVEAL
+========================================================= */
+
+#cardReveal {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reveal-content {
+    text-align: center;
+    animation: cardReveal 0.8s ease;
+}
+
+@keyframes cardReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.2) rotateY(180deg);
+    }
+    70% {
+        transform: scale(1.1) rotateY(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.reveal-title {
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 25px;
+    color: #ffd700;
+}
+
+.reveal-card {
+    width: 260px;
+    min-height: 360px;
+    margin: auto;
+}
+
+/* =========================================================
+   FRIENDS MODAL
+========================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 650px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 25px;
+    border-radius: 22px;
+    background: #11111b;
+    border: 1px solid var(--border);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 25px;
+}
+
+.friend-section {
+    margin-bottom: 25px;
+}
+
+.friend-section h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.search-row {
+    display: flex;
+    gap: 10px;
+}
+
+.search-row input {
+    flex: 1;
+    padding: 12px;
+    color: white;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+}
+
+.friend-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.accept-btn,
+.reject-btn,
+.request-btn {
+    border: none;
+    padding: 7px 11px;
+    border-radius: 8px;
+    color: white;
+}
+
+.accept-btn {
+    background: #24a148;
+}
+
+.reject-btn {
+    background: #d32f2f;
+}
+
+.request-btn {
+    background: var(--purple);
+}
+
+/* =========================================================
+   LEVEL UP
+========================================================= */
+
+#levelUp {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(5,5,10,0.88);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.level-up-content {
+    animation: levelPop 0.8s ease;
+}
+
+@keyframes levelPop {
+    0% {
+        transform: scale(0);
+    }
+    70% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.level-up-content h1 {
+    font-size: clamp(45px, 10vw, 90px);
+    background: linear-gradient(90deg, #ffd700, #ff3b30);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.level-number {
+    font-size: 45px;
+    font-weight: 900;
+    margin-top: 10px;
+}
+
+.confetti {
+    position: absolute;
+    width: 9px;
+    height: 18px;
+    background: #ffd700;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    from {
+        transform: translateY(-100vh) rotate(0deg);
+    }
+    to {
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+/* =========================================================
+   EMPTY STATES
+========================================================= */
+
+.empty {
+    text-align: center;
+    padding: 35px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 12px 4%;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .display-name {
+        display: none;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .auth-box {
+        padding: 28px 22px;
+    }
+
+    .dashboard {
+        width: 94%;
+    }
+
+    .section-card {
+        padding: 18px;
+    }
+
+    .calendar-day {
+        min-height: 50px;
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .calendar-weekdays {
+        font-size: 10px;
+    }
+
+    .task-input-row {
+        flex-direction: column;
+    }
+
+    .collection-card {
+        min-height: 230px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     INTRO SCREEN
+========================================================= -->
+
+<div id="intro">
+
+    <div class="intro-title">
+        Skill-Oraa
+    </div>
+
+    <div class="loading-container">
+
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+
+        <div class="loading-text">
+            Preparing your learning arena...
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     AUTH SCREEN
+========================================================= -->
+
+<div id="authScreen" class="hidden">
+
+    <div class="auth-box">
+
+        <div class="auth-logo">
+            Skill-Oraa
+        </div>
+
+        <div class="auth-subtitle">
+            Learn. Level Up. Collect. Repeat.
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <form id="loginForm" class="auth-form">
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="loginUsername"
+                    placeholder="Username"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Password"
+                    required
+                >
+            </div>
+
+            <div id="loginError" class="auth-error"></div>
+
+            <button class="primary-btn" type="submit">
+                Login
+            </button>
+
+        </form>
+
+
+        <!-- SIGNUP -->
+
+        <form id="signupForm" class="auth-form hidden">
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="signupUsername"
+                    placeholder="Username"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="signupDisplayName"
+                    placeholder="Display Name"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Password"
+                    required
+                >
+            </div>
+
+            <div id="signupError" class="auth-error"></div>
+
+            <button class="primary-btn" type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div class="auth-toggle">
+
+            <span id="toggleText">
+                Don't have an account?
+            </span>
+
+            <span id="toggleAuth">
+                Sign Up
+            </span>
+
+        </div>
+
+
+        <div class="demo-account">
+            Demo account: demo / demo123
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN APPLICATION
+========================================================= -->
+
+<div id="app" class="hidden">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            Skill-Oraa
+        </div>
+
+        <div class="header-right">
+
+            <div class="display-name" id="headerDisplayName">
+                User
+            </div>
+
+            <button
+                class="header-btn"
+                id="friendsBtn"
+            >
+                👥 Friends
+                <span
+                    class="badge hidden"
+                    id="friendBadge"
+                >
+                    0
+                </span>
+            </button>
+
+            <button
+                class="header-btn"
+                id="logoutBtn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="dashboard">
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <h1>
+                Welcome back,
+                <span id="welcomeName">
+                    User
+                </span>
+                👋
+            </h1>
+
+            <p>
+                Keep learning and build your Skill-Oraa collection.
+            </p>
+
+        </div>
+
+
+        <!-- XP -->
+
+        <div class="xp-card">
+
+            <div class="xp-top">
+
+                <div class="level-badge">
+                    <span id="levelNumber">
+                        1
+                    </span>
+                </div>
+
+                <div class="xp-info">
+
+                    <h3>
+                        Level <span id="levelText">1</span>
+                    </h3>
+
+                    <div class="xp-text">
+                        <span id="currentXP">0</span>
+                        /
+                        <span id="nextXP">100</span>
+                        XP
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="xp-progress">
+                <div
+                    class="xp-fill"
+                    id="xpFill"
+                ></div>
+            </div>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-value" id="tasksDone">0</div>
+                <div class="stat-label">Tasks Done</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🃏</div>
+                <div class="stat-value" id="cardsCollected">0</div>
+                <div class="stat-label">Cards Collected</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-value" id="streak">0</div>
+                <div class="stat-label">Day Streak</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value" id="friendsCount">0</div>
+                <div class="stat-label">Friends</div>
+            </div>
+
+        </div>
+
+
+        <!-- TABS -->
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                data-tab="calendar"
+            >
+                📅 Calendar
+            </button>
+
+            <button
+                class="tab"
+                data-tab="planner"
+            >
+                📚 Planner
+            </button>
+
+            <button
+                class="tab"
+                data-tab="log"
+            >
+                📝 Study Log
+            </button>
+
+            <button
+                class="tab"
+                data-tab="collection"
+            >
+                🃏 Collection
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             CALENDAR TAB
+        ================================================= -->
+
+        <section
+            id="calendarTab"
+            class="tab-content"
+        >
+
+            <div class="section-card">
+
+                <div class="calendar-header">
+
+                    <button
+                        class="small-btn"
+                        id="prevMonth"
+                    >
+                        ◀
+                    </button>
+
+                    <h2 id="calendarTitle">
+                        January 2026
+                    </h2>
+
+                    <button
+                        class="small-btn"
+                        id="nextMonth"
+                    >
+                        ▶
+                    </button>
+
+                </div>
+
+
+                <div class="calendar-weekdays">
+
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+
+                </div>
+
+
+                <div
+                    class="calendar-grid"
+                    id="calendarGrid"
+                ></div>
+
+
+                <div class="selected-date-info">
+
+                    <h3>
+                        Tasks for
+                        <span id="selectedDateText"></span>
+                    </h3>
+
+                    <div id="selectedDateTasks"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PLANNER TAB
+        ================================================= -->
+
+        <section
+            id="plannerTab"
+            class="tab-content hidden"
+        >
+
+            <div class="section-card">
+
+                <h2 class="section-title">
+                    📚 Study Planner
+                </h2>
+
+                <div class="task-input-row">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="What do you want to study today?"
+                    >
+
+                    <button
+                        class="primary-btn"
+                        id="addTaskBtn"
+                    >
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <div class="filter-row">
+
+                    <button
+                        class="filter-btn active"
+                        data-filter="all"
+                    >
+                        All
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="active"
+                    >
+                        Active
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="completed"
+                    >
+                        Completed
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="task-list"
+                    id="taskList"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STUDY LOG TAB
+        ================================================= -->
+
+        <section
+            id="logTab"
+            class="tab-content hidden"
+        >
+
+            <div class="section-card">
+
+                <h2 class="section-title">
+                    📝 Study Log
+                </h2>
+
+                <textarea
+                    class="study-textarea"
+                    id="studyText"
+                    placeholder="Write about what you studied today..."
+                ></textarea>
+
+                <button
+                    class="primary-btn"
+                    id="logStudyBtn"
+                >
+                    Log Study Session (+5 XP)
+                </button>
+
+
+                <div
+                    class="logs"
+                    id="logsList"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COLLECTION TAB
+        ================================================= -->
+
+        <section
+            id="collectionTab"
+            class="tab-content hidden"
+        >
+
+            <div class="section-card">
+
+                <div class="collection-top">
+
+                    <div>
+
+                        <h2 class="section-title">
+                            🃏 Card Collection
+                        </h2>
+
+                        <div class="card-count">
+
+                            Total:
+                            <span id="totalCards">
+                                0
+                            </span>
+
+                            |
+                            Unique:
+                            <span id="uniqueCards">
+                                0
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="filter-row">
+
+                    <button
+                        class="filter-btn active"
+                        data-card-filter="all"
+                    >
+                        All
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-card-filter="Football"
+                    >
+                        ⚽ Football
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-card-filter="Cricket"
+                    >
+                        🏏 Cricket
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-card-filter="Actors"
+                    >
+                        🎭 Actors
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="cards-grid"
+                    id="cardsGrid"
+                ></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     FRIENDS MODAL
+========================================================= -->
+
+<div
+    id="friendsModal"
+    class="modal hidden"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>
+                👥 Friends
+            </h2>
+
+            <button
+                class="close-btn"
+                id="closeFriends"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- REQUESTS -->
+
+        <div class="friend-section">
+
+            <h3>
+                Friend Requests
+            </h3>
+
+            <div id="requestsList"></div>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="friend-section">
+
+            <h3>
+                Search Friends
+            </h3>
+
+            <div class="search-row">
+
+                <input
+                    type="text"
+                    id="friendSearch"
+                    placeholder="Search username..."
+                >
+
+                <button
+                    class="primary-btn"
+                    id="searchFriendBtn"
+                >
+                    Search
+                </button>
+
+            </div>
+
+            <div id="searchResults"></div>
+
+        </div>
+
+
+        <!-- FRIENDS -->
+
+        <div class="friend-section">
+
+            <h3>
+                Friends List
+            </h3>
+
+            <div id="friendsList"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CARD REVEAL
+========================================================= -->
+
+<div
+    id="cardReveal"
+    class="hidden"
+>
+
+    <div class="reveal-content">
+
+        <div class="reveal-title">
+            🎉 CARD UNLOCKED!
+        </div>
+
+        <div
+            id="revealedCard"
+            class="collection-card reveal-card"
+        ></div>
+
+        <button
+            class="primary-btn"
+            style="margin-top:20px"
+            id="closeReveal"
+        >
+            Add to Collection
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LEVEL UP
+========================================================= -->
+
+<div
+    id="levelUp"
+    class="hidden"
+>
+
+    <div class="level-up-content">
+
+        <h1>
+            LEVEL UP!
+        </h1>
+
+        <div>
+            You reached
+        </div>
+
+        <div
+            class="level-number"
+            id="newLevel"
+        >
+            Level 2
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+/* =========================================================
+   SKILL-ORAA APPLICATION
+========================================================= */
+
+
+/* =========================================================
+   DATABASE
+========================================================= */
+
+const DB_KEY = "skillOraaDB";
+
+let db = JSON.parse(
+    localStorage.getItem(DB_KEY)
+) || {
+    users: {}
+};
+
+
+/* =========================================================
+   CURRENT SESSION
+========================================================= */
+
+let currentUser = null;
+
+let currentMonth = new Date().getMonth();
+
+let currentYear = new Date().getFullYear();
+
+let selectedDate = getToday();
+
+let taskFilter = "all";
+
+let cardFilter = "all";
+
+
+/* =========================================================
+   CARD DATABASE
+========================================================= */
+
+const cardPool = [
+
+    /* FOOTBALL */
+
+    {
+        name: "Lionel Messi",
+        emoji: "⚽",
+        sport: "Football"
+    },
+
+    {
+        name: "Cristiano Ronaldo",
+        emoji: "⚽",
+        sport: "Football"
+    },
+
+    {
+        name: "Neymar Jr",
+        emoji: "⚽",
+        sport: "Football"
+    },
+
+    {
+        name: "Kylian Mbappé",
+        emoji: "⚽",
+        sport: "Football"
+    },
+
+    {
+        name: "Harry Kane",
+        emoji: "⚽",
+        sport: "Football"
+    },
+
+    {
+        name: "Kevin De Bruyne",
+        emoji: "⚽",
+        sport: "Football"
+    },
+
+    {
+        name: "Mohamed Salah",
+        emoji: "⚽",
+        sport: "Football"
+    },
+
+    {
+        name: "Erling Haaland",
+        emoji: "⚽",
+        sport: "Football"
+    },
+
+
+    /* CRICKET */
+
+    {
+        name: "Virat Kohli",
+        emoji: "🏏",
+        sport: "Cricket"
+    },
+
+    {
+        name: "MS Dhoni",
+        emoji: "🏏",
+        sport: "Cricket"
+    },
+
+    {
+        name: "Rohit Sharma",
+        emoji: "🏏",
+        sport: "Cricket"
+    },
+
+    {
+        name: "Babar Azam",
+        emoji: "🏏",
+        sport: "Cricket"
+    },
+
+    {
+        name: "Ben Stokes",
+        emoji: "🏏",
+        sport: "Cricket"
+    },
+
+    {
+        name: "Jasprit Bumrah",
+        emoji: "🏏",
+        sport: "Cricket"
+    },
+
+    {
+        name: "Kane Williamson",
+        emoji: "🏏",
+        sport: "Cricket"
+    },
+
+    {
+        name: "Steve Smith",
+        emoji: "🏏",
+        sport: "Cricket"
+    },
+
+
+    /* ACTORS */
+
+    {
+        name: "Rajinikanth",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Kamal Haasan",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Vijay",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Ajith Kumar",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Suriya",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Vikram",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Dhanush",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Nayanthara",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Trisha",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Samantha",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Prabhas",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Allu Arjun",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Ram Charan",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "NTR Jr",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Mahesh Babu",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Shah Rukh Khan",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Aamir Khan",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Salman Khan",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Ranbir Kapoor",
+        emoji: "🎭",
+        sport: "Actors"
+    },
+
+    {
+        name: "Deepika Padukone",
+        emoji: "🎭",
+        sport: "Actors"
+    }
+
+];
+
+
+/* =========================================================
+   INITIALIZE DEMO ACCOUNT
+========================================================= */
+
+function createDefaultAccount() {
+
+    if (!db.users.demo) {
+
+        db.users.demo = createUser(
+            "demo",
+            "demo123",
+            "Demo User"
+        );
+
+        saveDB();
+
+    }
+
+}
+
+createDefaultAccount();
+
+
+/* =========================================================
+   CREATE USER
+========================================================= */
+
+function createUser(
+    username,
+    password,
+    displayName
+) {
+
+    return {
+
+        password,
+
+        displayName,
+
+        friends: [],
+
+        friendRequests: [],
+
+        sentRequests: [],
+
+        data: {
+
+            tasks: [],
+
+            logs: [],
+
+            cards: [],
+
+            xp: 0,
+
+            level: 1,
+
+            completedTasks: 0,
+
+            studyDays: {},
+
+            streak: 0,
+
+            lastStudyDate: null
+
+        }
+
+    };
+
+}
+
+
+/* =========================================================
+   SAVE DATABASE
+========================================================= */
+
+function saveDB() {
+
+    localStorage.setItem(
+        DB_KEY,
+        JSON.stringify(db)
+    );
+
+}
+
+
+/* =========================================================
+   DATE HELPERS
+========================================================= */
+
+function getToday() {
+
+    const date = new Date();
+
+    return formatDate(date);
+
+}
+
+
+function formatDate(date) {
+
+    const y = date.getFullYear();
+
+    const m = String(
+        date.getMonth() + 1
+    ).padStart(2, "0");
+
+    const d = String(
+        date.getDate()
+    ).padStart(2, "0");
+
+    return `${y}-${m}-${d}`;
+
+}
+
+
+function getUser() {
+
+    return db.users[currentUser];
+
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+setTimeout(() => {
+
+    document
+        .getElementById("intro")
+        .classList.add("fade-out");
+
+    document
+        .getElementById("authScreen")
+        .classList.remove("hidden");
+
+}, 2700);
+
+
+/* =========================================================
+   AUTH TOGGLE
+========================================================= */
+
+document
+    .getElementById("toggleAuth")
+    .addEventListener(
+        "click",
+        () => {
+
+            const login =
+                document
+                .getElementById("loginForm");
+
+            const signup =
+                document
+                .getElementById("signupForm");
+
+            const toggleText =
+                document
+                .getElementById("toggleText");
+
+            const toggle =
+                document
+                .getElementById("toggleAuth");
+
+
+            login.classList.toggle("hidden");
+
+            signup.classList.toggle("hidden");
+
+
+            if (
+                login.classList.contains("hidden")
+            ) {
+
+                toggleText.textContent =
+                    "Already have an account?";
+
+                toggle.textContent =
+                    "Login";
+
+            } else {
+
+                toggleText.textContent =
+                    "Don't have an account?";
+
+                toggle.textContent =
+                    "Sign Up";
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        function(e) {
+
+            e.preventDefault();
+
+            const username =
+                document
+                .getElementById("loginUsername")
+                .value
+                .trim()
+                .toLowerCase();
+
+            const password =
+                document
+                .getElementById("loginPassword")
+                .value;
+
+            const error =
+                document
+                .getElementById("loginError");
+
+
+            if (
+                !db.users[username] ||
+                db.users[username].password !== password
+            ) {
+
+                error.textContent =
+                    "Invalid username or password.";
+
+                return;
+
+            }
+
+
+            currentUser = username;
+
+            error.textContent = "";
+
+            showApp();
+
+        }
+    );
+
+
+/* =========================================================
+   SIGNUP
+========================================================= */
+
+document
+    .getElementById("signupForm")
+    .addEventListener(
+        "submit",
+        function(e) {
+
+            e.preventDefault();
+
+
+            const username =
+                document
+                .getElementById("signupUsername")
+                .value
+                .trim()
+                .toLowerCase();
+
+            const displayName =
+                document
+                .getElementById("signupDisplayName")
+                .value
+                .trim();
+
+            const password =
+                document
+                .getElementById("signupPassword")
+                .value;
+
+            const error =
+                document
+                .getElementById("signupError");
+
+
+            if (db.users[username]) {
+
+                error.textContent =
+                    "Username already exists.";
+
+                return;
+
+            }
+
+
+            if (username.length < 3) {
+
+                error.textContent =
+                    "Username must have at least 3 characters.";
+
+                return;
+
+            }
+
+
+            if (password.length < 4) {
+
+                error.textContent =
+                    "Password must have at least 4 characters.";
+
+                return;
+
+            }
+
+
+            db.users[username] =
+                createUser(
+                    username,
+                    password,
+                    displayName
+                );
+
+
+            saveDB();
+
+
+            currentUser = username;
+
+            showApp();
+
+        }
+    );
+
+
+/* =========================================================
+   SHOW APP
+========================================================= */
+
+function showApp() {
+
+    document
+        .getElementById("authScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("app")
+        .classList.remove("hidden");
+
+
+    const user = getUser();
+
+
+    document
+        .getElementById("headerDisplayName")
+        .textContent =
+        user.displayName;
+
+
+    document
+        .getElementById("welcomeName")
+        .textContent =
+        user.displayName;
+
+
+    updateDashboard();
+
+    renderCalendar();
+
+    renderTasks();
+
+    renderLogs();
+
+    renderCards();
+
+    updateFriendBadge();
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            currentUser = null;
+
+            document
+                .getElementById("app")
+                .classList.add("hidden");
+
+            document
+                .getElementById("authScreen")
+                .classList.remove("hidden");
+
+            document
+                .getElementById("loginForm")
+                .reset();
+
+        }
+    );
+
+
+/* =========================================================
+   DASHBOARD UPDATE
+========================================================= */
+
+function updateDashboard() {
+
+    const user = getUser();
+
+    const data = user.data;
+
+
+    document
+        .getElementById("levelNumber")
+        .textContent =
+        data.level;
+
+
+    document
+        .getElementById("levelText")
+        .textContent =
+        data.level;
+
+
+    document
+        .getElementById("currentXP")
+        .textContent =
+        data.xp;
+
+
+    const next =
+        100 * data.level;
+
+
+    document
+        .getElementById("nextXP")
+        .textContent =
+        next;
+
+
+    const percentage =
+        Math.min(
+            100,
+            (data.xp / next) * 100
+        );
+
+
+    document
+        .getElementById("xpFill")
+        .style.width =
+        percentage + "%";
+
+
+    document
+        .getElementById("tasksDone")
+        .textContent =
+        data.completedTasks;
+
+
+    document
+        .getElementById("cardsCollected")
+        .textContent =
+        data.cards.length;
+
+
+    document
+        .getElementById("streak")
+        .textContent =
+        data.streak;
+
+
+    document
+        .getElementById("friendsCount")
+        .textContent =
+        user.friends.length;
+
+}
+
+
+/* =========================================================
+   XP SYSTEM
+========================================================= */
+
+function addXP(amount) {
+
+    const data =
+        getUser().data;
+
+
+    data.xp += amount;
+
+
+    let leveledUp = false;
+
+
+    while (
+        data.xp >=
+        100 * data.level
+    ) {
+
+        data.xp -=
+            100 * data.level;
+
+        data.level++;
+
+        leveledUp = true;
+
+    }
+
+
+    saveDB();
+
+    updateDashboard();
+
+
+    if (leveledUp) {
+
+        showLevelUp(
+            data.level
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LEVEL UP
+========================================================= */
+
+function showLevelUp(level) {
+
+    const overlay =
+        document
+        .getElementById("levelUp");
+
+
+    document
+        .getElementById("newLevel")
+        .textContent =
+        "Level " + level;
+
+
+    overlay.classList.remove(
+        "hidden"
+    );
+
+
+    for (
+        let i = 0;
+        i < 70;
+        i++
+    ) {
+
+        const piece =
+            document
+            .createElement("div");
+
+        piece.className =
+            "confetti";
+
+        piece.style.left =
+            Math.random() * 100 + "%";
+
+        piece.style.animationDelay =
+            Math.random() * 1.5 + "s";
+
+        piece.style.background =
+            [
+                "#ffd700",
+                "#ff3b30",
+                "#6C3CE1",
+                "#667eea"
+            ][
+                Math.floor(
+                    Math.random() * 4
+                )
+            ];
+
+        overlay.appendChild(
+            piece
+        );
+
+    }
+
+
+    setTimeout(
+        () => {
+
+            overlay.classList.add(
+                "hidden"
+            );
+
+            overlay
+                .querySelectorAll(
+                    ".confetti"
+                )
+                .forEach(
+                    el => el.remove()
+                );
+
+        },
+        3000
+    );
+
+}
+
+
+/* =========================================================
+   TAB SYSTEM
+========================================================= */
+
+document
+    .querySelectorAll(".tab")
+    .forEach(
+        tab => {
+
+            tab.addEventListener(
+                "click",
+                () => {
+
+                    document
+                        .querySelectorAll(
+                            ".tab"
+                        )
+                        .forEach(
+                            t =>
+                            t.classList.remove(
+                                "active"
+                            )
+                        );
+
+
+                    tab.classList.add(
+                        "active"
+                    );
+
+
+                    document
+                        .querySelectorAll(
+                            ".tab-content"
+                        )
+                        .forEach(
+                            content =>
+                            content.classList.add(
+                                "hidden"
+                            )
+                        );
+
+
+                    document
+                        .getElementById(
+                            tab.dataset.tab +
+                            "Tab"
+                        )
+                        .classList.remove(
+                            "hidden"
+                        );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+function renderCalendar() {
+
+    const grid =
+        document
+        .getElementById(
+            "calendarGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    const firstDay =
+        new Date(
+            currentYear,
+            currentMonth,
+            1
+        );
+
+
+    const lastDay =
+        new Date(
+            currentYear,
+            currentMonth + 1,
+            0
+        );
+
+
+    const monthName =
+        firstDay.toLocaleString(
+            "default",
+            {
+                month: "long"
+            }
+        );
+
+
+    document
+        .getElementById(
+            "calendarTitle"
+        )
+        .textContent =
+        `${monthName} ${currentYear}`;
+
+
+    const startDay =
+        firstDay.getDay();
+
+
+    const totalDays =
+        lastDay.getDate();
+
+
+    const previousMonthLast =
+        new Date(
+            currentYear,
+            currentMonth,
+            0
+        ).getDate();
+
+
+    const data =
+        getUser().data;
+
+
+    for (
+        let i = 0;
+        i < startDay;
+        i++
+    ) {
+
+        const day =
+            previousMonthLast -
+            startDay +
+            i +
+            1;
+
+
+        const cell =
+            createCalendarCell(
+                day,
+                currentMonth - 1,
+                currentYear,
+                true
+            );
+
+
+        grid.appendChild(
+            cell
+        );
+
+    }
+
+
+    for (
+        let day = 1;
+        day <= totalDays;
+        day++
+    ) {
+
+        const cell =
+            createCalendarCell(
+                day,
+                currentMonth,
+                currentYear,
+                false
+            );
+
+
+        grid.appendChild(
+            cell
+        );
+
+    }
+
+
+    const totalCells =
+        startDay +
+        totalDays;
+
+
+    const remaining =
+        Math.ceil(
+            totalCells / 7
+        ) * 7 -
+        totalCells;
+
+
+    for (
+        let day = 1;
+        day <= remaining;
+        day++
+    ) {
+
+        const cell =
+            createCalendarCell(
+                day,
+                currentMonth + 1,
+                currentYear,
+                true
+            );
+
+
+        grid.appendChild(
+            cell
+        );
+
+    }
+
+
+    updateSelectedDate();
+
+}
+
+
+function createCalendarCell(
+    day,
+    month,
+    year,
+    other
+) {
+
+    const cell =
+        document
+        .createElement("div");
+
+
+    cell.className =
+        "calendar-day";
+
+
+    if (other) {
+
+        cell.classList.add(
+            "other"
+        );
+
+    }
+
+
+    const dateObj =
+        new Date(
+            year,
+            month,
+            day
+        );
+
+
+    const date =
+        formatDate(dateObj);
+
+
+    cell.textContent =
+        day;
+
+
+    if (
+        date === getToday()
+    ) {
+
+        cell.classList.add(
+            "today"
+        );
+
+    }
+
+
+    if (
+        date === selectedDate
+    ) {
+
+        cell.classList.add(
+            "selected"
+        );
+
+    }
+
+
+    const data =
+        getUser().data;
+
+
+    if (
+        data.studyDays[date] ||
+        data.tasks.some(
+            t =>
+            t.date === date &&
+            t.completed
+        )
+    ) {
+
+        const dot =
+            document
+            .createElement("div");
+
+        dot.className =
+            "activity-dot";
+
+        cell.appendChild(
+            dot
+        );
+
+    }
+
+
+    cell.addEventListener(
+        "click",
+        () => {
+
+            selectedDate =
+                date;
+
+            renderCalendar();
+
+        }
+    );
+
+
+    return cell;
+
+}
+
+
+/* =========================================================
+   CALENDAR NAVIGATION
+========================================================= */
+
+document
+    .getElementById("prevMonth")
+    .addEventListener(
+        "click",
+        () => {
+
+            currentMonth--;
+
+            if (
+                currentMonth < 0
+            ) {
+
+                currentMonth = 11;
+
+                currentYear--;
+
+            }
+
+            renderCalendar();
+
+        }
+    );
+
+
+document
+    .getElementById("nextMonth")
+    .addEventListener(
+        "click",
+        () => {
+
+            currentMonth++;
+
+            if (
+                currentMonth > 11
+            ) {
+
+                currentMonth = 0;
+
+                currentYear++;
+
+            }
+
+            renderCalendar();
+
+        }
+    );
+
+
+function updateSelectedDate() {
+
+    const date =
+        new Date(
+            selectedDate +
+            "T00:00:00"
+        );
+
+
+    document
+        .getElementById(
+            "selectedDateText"
+        )
+        .textContent =
+        date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+
+    const container =
+        document
+        .getElementById(
+            "selectedDateTasks"
+        );
+
+
+    const tasks =
+        getUser()
+        .data
+        .tasks
+        .filter(
+            t =>
+            t.date === selectedDate
+        );
+
+
+    if (!tasks.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                No tasks planned for this day.
+            </div>`;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        tasks
+        .map(
+            task =>
+            `<div class="day-task">
+                ${task.completed ? "✅" : "📌"}
+                ${escapeHTML(task.text)}
+            </div>`
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   ADD TASK
+========================================================= */
+
+document
+    .getElementById("addTaskBtn")
+    .addEventListener(
+        "click",
+        addTask
+    );
+
+
+document
+    .getElementById("taskInput")
+    .addEventListener(
+        "keydown",
+        e => {
+
+            if (
+                e.key === "Enter"
+            ) {
+
+                addTask();
+
+            }
+
+        }
+    );
+
+
+function addTask() {
+
+    const input =
+        document
+        .getElementById(
+            "taskInput"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if (!text) {
+
+        return;
+
+    }
+
+
+    getUser()
+        .data
+        .tasks
+        .push({
+
+            id:
+                Date.now()
+                .toString(),
+
+            text,
+
+            completed: false,
+
+            date:
+                selectedDate,
+
+            createdAt:
+                new Date()
+                .toISOString()
+
+        });
+
+
+    saveDB();
+
+
+    input.value = "";
+
+
+    renderTasks();
+
+    renderCalendar();
+
+}
+
+
+/* =========================================================
+   TASK FILTERS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-filter]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    document
+                        .querySelectorAll(
+                            "[data-filter]"
+                        )
+                        .forEach(
+                            b =>
+                            b.classList.remove(
+                                "active"
+                            )
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    taskFilter =
+                        button.dataset.filter;
+
+
+                    renderTasks();
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   RENDER TASKS
+========================================================= */
+
+function renderTasks() {
+
+    const list =
+        document
+        .getElementById(
+            "taskList"
+        );
+
+
+    let tasks =
+        getUser()
+        .data
+        .tasks
+        .filter(
+            task =>
+            task.date === selectedDate
+        );
+
+
+    if (
+        taskFilter === "active"
+    ) {
+
+        tasks =
+            tasks.filter(
+                t =>
+                !t.completed
+            );
+
+    }
+
+
+    if (
+        taskFilter === "completed"
+    ) {
+
+        tasks =
+            tasks.filter(
+                t =>
+                t.completed
+            );
+
+    }
+
+
+    if (!tasks.length) {
+
+        list.innerHTML =
+            `<div class="empty">
+                No tasks found for ${selectedDate}.
+            </div>`;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        tasks
+        .map(
+            task =>
+            `
+            <div
+                class="task-item
+                ${task.completed ? "completed" : ""}"
+            >
+
+                <input
+                    type="checkbox"
+                    class="task-check"
+                    ${task.completed ? "checked" : ""}
+                    onchange="
+                        toggleTask('${task.id}')
+                    "
+                >
+
+                <div class="task-text">
+                    ${escapeHTML(task.text)}
+
+                    <div class="task-date">
+                        ${task.date}
+                    </div>
+                </div>
+
+                <button
+                    class="delete-btn"
+                    onclick="
+                        deleteTask('${task.id}')
+                    "
+                >
+                    🗑
+                </button>
+
+            </div>
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   COMPLETE TASK
+========================================================= */
+
+function toggleTask(id) {
+
+    const task =
+        getUser()
+        .data
+        .tasks
+        .find(
+            t =>
+            t.id === id
+        );
+
+
+    if (!task) {
+
+        return;
+
+    }
+
+
+    if (
+        !task.completed
+    ) {
+
+        task.completed = true;
+
+
+        const data =
+            getUser().data;
+
+
+        data.completedTasks++;
+
+
+        data.studyDays[
+            task.date
+        ] = true;
+
+
+        updateStreak(
+            task.date
+        );
+
+
+        addXP(10);
+
+
+        saveDB();
+
+
+        /*
+          30% card unlock chance
+        */
+
+        if (
+            Math.random() < 0.30
+        ) {
+
+            unlockRandomCard();
+
+        }
+
+    } else {
+
+        task.completed = false;
+
+        getUser()
+            .data
+            .completedTasks =
+            Math.max(
+                0,
+                getUser()
+                .data
+                .completedTasks - 1
+            );
+
+        saveDB();
+
+    }
+
+
+    renderTasks();
+
+    renderCalendar();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   DELETE TASK
+========================================================= */
+
+function deleteTask(id) {
+
+    const data =
+        getUser().data;
+
+
+    data.tasks =
+        data.tasks.filter(
+            t =>
+            t.id !== id
+        );
+
+
+    saveDB();
+
+    renderTasks();
+
+    renderCalendar();
+
+}
+
+
+/* =========================================================
+   STREAK
+========================================================= */
+
+function updateStreak(date) {
+
+    const data =
+        getUser().data;
+
+
+    if (
+        data.lastStudyDate === date
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !data.lastStudyDate
+    ) {
+
+        data.streak = 1;
+
+    } else {
+
+        const previous =
+            new Date(
+                data.lastStudyDate
+            );
+
+
+        const current =
+            new Date(
+                date
+            );
+
+
+        const diff =
+            Math.round(
+                (
+                    current -
+                    previous
+                ) /
+                (
+                    1000 *
+                    60 *
+                    60 *
+                    24
+                )
+            );
+
+
+        if (
+            diff === 1
+        ) {
+
+            data.streak++;
+
+        } else if (
+            diff > 1
+        ) {
+
+            data.streak = 1;
+
+        }
+
+    }
+
+
+    data.lastStudyDate =
+        date;
+
+}
+
+
+/* =========================================================
+   STUDY LOG
+========================================================= */
+
+document
+    .getElementById(
+        "logStudyBtn"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const textarea =
+                document
+                .getElementById(
+                    "studyText"
+                );
+
+
+            const text =
+                textarea.value.trim();
+
+
+            if (!text) {
+
+                return;
+
+            }
+
+
+            const data =
+                getUser().data;
+
+
+            data.logs.unshift({
+
+                id:
+                    Date.now()
+                    .toString(),
+
+                text,
+
+                date:
+                    selectedDate,
+
+                timestamp:
+                    new Date()
+                    .toISOString()
+
+            });
+
+
+            data.studyDays[
+                selectedDate
+            ] = true;
+
+
+            updateStreak(
+                selectedDate
+            );
+
+
+            addXP(5);
+
+
+            saveDB();
+
+
+            textarea.value = "";
+
+
+            renderLogs();
+
+            renderCalendar();
+
+            updateDashboard();
+
+        }
+    );
+
+
+/* =========================================================
+   RENDER LOGS
+========================================================= */
+
+function renderLogs() {
+
+    const container =
+        document
+        .getElementById(
+            "logsList"
+        );
+
+
+    const logs =
+        getUser()
+        .data
+        .logs;
+
+
+    if (!logs.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                No study sessions logged yet.
+            </div>`;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        logs
+        .map(
+            log => {
+
+                const time =
+                    new Date(
+                        log.timestamp
+                    )
+                    .toLocaleString();
+
+
+                return `
+                    <div class="log-item">
+
+                        <div class="log-meta">
+                            📅 ${log.date}
+                            &nbsp; • &nbsp;
+                            ${time}
+                        </div>
+
+                        <div class="log-text">
+                            ${escapeHTML(log.text)}
+                        </div>
+
+                    </div>
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   CARD SYSTEM
+========================================================= */
+
+function getRarity() {
+
+    const random =
+        Math.random();
+
+
+    if (
+        random < 0.55
+    ) {
+
+        return "common";
+
+    }
+
+
+    if (
+        random < 0.82
+    ) {
+
+        return "rare";
+
+    }
+
+
+    if (
+        random < 0.96
+    ) {
+
+        return "epic";
+
+    }
+
+
+    return "legendary";
+
+}
+
+
+function unlockRandomCard() {
+
+    const card =
+        cardPool[
+            Math.floor(
+                Math.random() *
+                cardPool.length
+            )
+        ];
+
+
+    const newCard = {
+
+        id:
+            Date.now()
+            .toString(),
+
+        name:
+            card.name,
+
+        emoji:
+            card.emoji,
+
+        sport:
+            card.sport,
+
+        rarity:
+            getRarity(),
+
+        unlockedAt:
+            new Date()
+            .toISOString()
+
+    };
+
+
+    getUser()
+        .data
+        .cards
+        .push(
+            newCard
+        );
+
+
+    saveDB();
+
+
+    showCardReveal(
+        newCard
+    );
+
+
+    renderCards();
+
+    updateDashboard();
+
+}
+
+
+function showCardReveal(card) {
+
+    const reveal =
+        document
+        .getElementById(
+            "cardReveal"
+        );
+
+
+    document
+        .getElementById(
+            "revealedCard"
+        )
+        .innerHTML =
+        cardHTML(card);
+
+
+    reveal.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+document
+    .getElementById(
+        "closeReveal"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            document
+                .getElementById(
+                    "cardReveal"
+                )
+                .classList.add(
+                    "hidden"
+                );
+
+        }
+    );
+
+
+function cardHTML(card) {
+
+    return `
+
+        <div class="card-rarity ${card.rarity}">
+            ${card.rarity}
+        </div>
+
+        <div class="card-avatar">
+            ${card.emoji}
+        </div>
+
+        <div class="card-name">
+            ${escapeHTML(card.name)}
+        </div>
+
+        <div class="card-sport">
+            ${card.sport}
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CARD FILTER
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-card-filter]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    document
+                        .querySelectorAll(
+                            "[data-card-filter]"
+                        )
+                        .forEach(
+                            b =>
+                            b.classList.remove(
+                                "active"
+                            )
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    cardFilter =
+                        button.dataset.cardFilter;
+
+
+                    renderCards();
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   RENDER CARDS
+========================================================= */
+
+function renderCards() {
+
+    const grid =
+        document
+        .getElementById(
+            "cardsGrid"
+        );
+
+
+    let cards =
+        getUser()
+        .data
+        .cards;
+
+
+    document
+        .getElementById(
+            "totalCards"
+        )
+        .textContent =
+        cards.length;
+
+
+    const unique =
+        new Set(
+            cards.map(
+                c =>
+                c.name
+            )
+        );
+
+
+    document
+        .getElementById(
+            "uniqueCards"
+        )
+        .textContent =
+        unique.size;
+
+
+    if (
+        cardFilter !== "all"
+    ) {
+
+        cards =
+            cards.filter(
+                c =>
+                c.sport === cardFilter
+            );
+
+    }
+
+
+    if (!cards.length) {
+
+        grid.innerHTML =
+            `<div class="empty">
+                Complete study tasks to unlock cards! 🃏
+            </div>`;
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        cards
+        .map(
+            card =>
+            `
+            <div class="collection-card">
+
+                ${cardHTML(card)}
+
+            </div>
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   FRIENDS SYSTEM
+========================================================= */
+
+document
+    .getElementById(
+        "friendsBtn"
+    )
+    .addEventListener(
+        "click",
+        openFriends
+    );
+
+
+document
+    .getElementById(
+        "closeFriends"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            document
+                .getElementById(
+                    "friendsModal"
+                )
+                .classList.add(
+                    "hidden"
+                );
+
+        }
+    );
+
+
+function openFriends() {
+
+    renderRequests();
+
+    renderFriends();
+
+    document
+        .getElementById(
+            "searchResults"
+        )
+        .innerHTML = "";
+
+
+    document
+        .getElementById(
+            "friendsModal"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+}
+
+
+function renderRequests() {
+
+    const container =
+        document
+        .getElementById(
+            "requestsList"
+        );
+
+
+    const requests =
+        getUser()
+        .friendRequests;
+
+
+    if (!requests.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                No pending requests.
+            </div>`;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        requests
+        .map(
+            username =>
+            `
+            <div class="friend-item">
+
+                <span>
+                    👤 ${escapeHTML(
+                        db.users[
+                            username
+                        ]
+                        ?.displayName ||
+                        username
+                    )}
+                </span>
+
+                <div class="friend-actions">
+
+                    <button
+                        class="accept-btn"
+                        onclick="
+                            acceptRequest('${username}')
+                        "
+                    >
+                        Accept
+                    </button>
+
+                    <button
+                        class="reject-btn"
+                        onclick="
+                            rejectRequest('${username}')
+                        "
+                    >
+                        Reject
+                    </button>
+
+                </div>
+
+            </div>
+            `
+        )
+        .join("");
+
+}
+
+
+function renderFriends() {
+
+    const container =
+        document
+        .getElementById(
+            "friendsList"
+        );
+
+
+    const friends =
+        getUser()
+        .friends;
+
+
+    if (!friends.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                You haven't added any friends yet.
+            </div>`;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        friends
+        .map(
+            username =>
+            `
+            <div class="friend-item">
+
+                <span>
+                    👤
+                    ${escapeHTML(
+                        db.users[
+                            username
+                        ]?.displayName ||
+                        username
+                    )}
+                </span>
+
+                <small>
+                    @${escapeHTML(username)}
+                </small>
+
+            </div>
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   SEARCH FRIENDS
+========================================================= */
+
+document
+    .getElementById(
+        "searchFriendBtn"
+    )
+    .addEventListener(
+        "click",
+        searchFriends
+    );
+
+
+function searchFriends() {
+
+    const query =
+        document
+        .getElementById(
+            "friendSearch"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const container =
+        document
+        .getElementById(
+            "searchResults"
+        );
+
+
+    if (!query) {
+
+        container.innerHTML = "";
+
+        return;
+
+    }
+
+
+    const users =
+        Object
+        .keys(
+            db.users
+        )
+        .filter(
+            username =>
+            username !== currentUser &&
+            username.includes(query)
+        );
+
+
+    if (!users.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                No users found.
+            </div>`;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        users
+        .map(
+            username => {
+
+                const user =
+                    db.users[
+                        username
+                    ];
+
+
+                const me =
+                    getUser();
+
+
+                const isFriend =
+                    me.friends
+                    .includes(
+                        username
+                    );
+
+
+                const pending =
+                    me.sentRequests
+                    .includes(
+                        username
+                    );
+
+
+                return `
+
+                    <div class="friend-item">
+
+                        <span>
+                            👤
+                            ${escapeHTML(
+                                user.displayName
+                            )}
+                            <small>
+                                @${escapeHTML(username)}
+                            </small>
+                        </span>
+
+                        ${
+                            isFriend
+                            ?
+                            `<button class="small-btn">
+                                Friends
+                            </button>`
+                            :
+                            pending
+                            ?
+                            `<button class="small-btn">
+                                Requested
+                            </button>`
+                            :
+                            `<button
+                                class="request-btn"
+                                onclick="
+                                    sendRequest('${username}')
+                                "
+                            >
+                                Add Friend
+                            </button>`
+                        }
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   SEND FRIEND REQUEST
+========================================================= */
+
+function sendRequest(username) {
+
+    const me =
+        getUser();
+
+
+    const target =
+        db.users[
+            username
+        ];
+
+
+    if (!target) {
+
+        return;
+
+    }
+
+
+    if (
+        me.friends
+        .includes(
+            username
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        target.friendRequests
+        .includes(
+            currentUser
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    target.friendRequests
+        .push(
+            currentUser
+        );
+
+
+    me.sentRequests
+        .push(
+            username
+        );
+
+
+    saveDB();
+
+
+    searchFriends();
+
+    updateFriendBadge();
+
+}
+
+
+/* =========================================================
+   ACCEPT REQUEST
+========================================================= */
+
+function acceptRequest(username) {
+
+    const me =
+        getUser();
+
+
+    const sender =
+        db.users[
+            username
+        ];
+
+
+    if (!sender) {
+
+        return;
+
+    }
+
+
+    me.friendRequests =
+        me.friendRequests
+        .filter(
+            u =>
+            u !== username
+        );
+
+
+    me.friends
+        .push(
+            username
+        );
+
+
+    sender.sentRequests =
+        sender.sentRequests
+        .filter(
+            u =>
+            u !== currentUser
+        );
+
+
+    sender.friends
+        .push(
+            currentUser
+        );
+
+
+    saveDB();
+
+
+    renderRequests();
+
+    renderFriends();
+
+    updateDashboard();
+
+    updateFriendBadge();
+
+}
+
+
+/* =========================================================
+   REJECT REQUEST
+========================================================= */
+
+function rejectRequest(username) {
+
+    const me =
+        getUser();
+
+
+    me.friendRequests =
+        me.friendRequests
+        .filter(
+            u =>
+            u !== username
+        );
+
+
+    const sender =
+        db.users[
+            username
+        ];
+
+
+    if (sender) {
+
+        sender.sentRequests =
+            sender.sentRequests
+            .filter(
+                u =>
+                u !== currentUser
+            );
+
+    }
+
+
+    saveDB();
+
+
+    renderRequests();
+
+    updateFriendBadge();
+
+}
+
+
+/* =========================================================
+   FRIEND BADGE
+========================================================= */
+
+function updateFriendBadge() {
+
+    if (!currentUser) {
+
+        return;
+
+    }
+
+
+    const count =
+        getUser()
+        .friendRequests
+        .length;
+
+
+    const badge =
+        document
+        .getElementById(
+            "friendBadge"
+        );
+
+
+    badge.textContent =
+        count;
+
+
+    if (count > 0) {
+
+        badge.classList.remove(
+            "hidden"
+        );
+
+    } else {
+
+        badge.classList.add(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document
+        .createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   INITIAL DEFAULT DATE
+========================================================= */
+
+selectedDate =
+    getToday();
+
+</script>
+
+</body>
+</html>
