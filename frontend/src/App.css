@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Righteous&display=swap');
+/* =========================================
+   GLOBAL
+========================================= */
 
 * {
   margin: 0;
@@ -6,329 +8,505 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
 body {
-  font-family: "Inter", sans-serif;
-  background: #0d0b16;
-  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b1020;
+  color: #f8fafc;
 }
 
-button,
-input {
-  font-family: inherit;
-}
 
-/* ==========================
-   AUTH
-========================== */
+/* =========================================
+   LOGIN / SIGNUP
+========================================= */
 
 .auth-container {
   min-height: 100vh;
+
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
   padding: 20px;
 
   background:
     radial-gradient(
       circle at top left,
-      rgba(108, 60, 225, 0.35),
-      transparent 40%
+      rgba(99, 102, 241, 0.18),
+      transparent 35%
     ),
     radial-gradient(
       circle at bottom right,
-      rgba(118, 75, 162, 0.3),
-      transparent 40%
+      rgba(139, 92, 246, 0.15),
+      transparent 35%
     ),
-    #0d0b16;
+    #0b1020;
 }
+
 
 .auth-card {
-  width: 100%;
-  max-width: 430px;
-  padding: 45px;
+  width: 420px;
+  max-width: 100%;
 
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 25px;
+  padding: 42px;
 
-  backdrop-filter: blur(20px);
+  background: #151d35;
+
+  border: 1px solid #293454;
+
+  border-radius: 22px;
+
+  text-align: center;
 
   box-shadow:
-    0 25px 80px rgba(0, 0, 0, 0.5);
+    0 20px 60px
+    rgba(0, 0, 0, 0.35);
 }
 
-.brand {
-  text-align: center;
-  margin-bottom: 35px;
-}
 
-.brand h1,
-.logo {
-  font-family: "Righteous", cursive;
-
-  background: linear-gradient(
-    90deg,
-    #ffd700,
-    #ff3b30,
-    #ffd700
-  );
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+/* BRAND */
 
 .brand h1 {
-  font-size: 48px;
+  font-size: 32px;
+
+  font-weight: 800;
+
+  color: #8b5cf6;
+
+  margin-bottom: 8px;
 }
 
 .brand p {
-  color: #aaa;
-  margin-top: 10px;
+  color: #94a3b8;
+
+  font-size: 14px;
+
+  margin-bottom: 32px;
 }
 
+
+/* AUTH TITLES */
+
 .auth-card h2 {
-  text-align: center;
   font-size: 25px;
+
+  color: white;
+
+  margin-bottom: 8px;
 }
 
 .auth-subtitle {
-  text-align: center;
-  color: #999;
-  margin: 10px 0 25px;
+  color: #94a3b8;
+
+  font-size: 14px;
+
+  margin-bottom: 25px;
 }
+
+
+/* AUTH FORM */
 
 .auth-card form {
   display: flex;
+
   flex-direction: column;
-  gap: 15px;
+
+  gap: 14px;
 }
+
 
 .auth-card input {
   width: 100%;
-  padding: 15px 18px;
 
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  height: 46px;
+
+  padding: 0 15px;
+
+  background: #0b1020;
 
   color: white;
-  border-radius: 12px;
-  outline: none;
 
-  transition: 0.3s;
+  border: 1px solid #303b5c;
+
+  border-radius: 9px;
+
+  font-size: 14px;
+
+  outline: none;
 }
+
+
+.auth-card input::placeholder {
+  color: #64748b;
+}
+
 
 .auth-card input:focus {
-  border-color: #6c3ce1;
-  box-shadow: 0 0 15px rgba(108, 60, 225, 0.3);
+  border-color: #6366f1;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(99, 102, 241, 0.12);
 }
 
-.primary-btn,
-.feature-card button {
-  border: none;
-  padding: 14px;
 
-  border-radius: 12px;
+/* LOGIN BUTTON */
+
+.primary-btn {
+  width: 100%;
+
+  height: 46px;
+
+  margin-top: 5px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: linear-gradient(
+    135deg,
+    #6366f1,
+    #8b5cf6
+  );
 
   color: white;
+
+  font-size: 14px;
+
   font-weight: 700;
 
   cursor: pointer;
 
-  background: linear-gradient(
-    135deg,
-    #6c3ce1,
-    #667eea
-  );
-
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
-.primary-btn:hover,
-.feature-card button:hover {
+
+.primary-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(108, 60, 225, 0.4);
+
+  box-shadow:
+    0 8px 25px
+    rgba(99, 102, 241, 0.3);
 }
+
+
+/* ERROR / MESSAGE */
+
+.message {
+  margin-top: 18px;
+
+  color: #f87171;
+
+  font-size: 13px;
+}
+
+
+/* SWITCH LOGIN / SIGNUP */
 
 .switch-btn {
-  width: 100%;
-  margin-top: 20px;
+  margin-top: 22px;
 
-  background: none;
   border: none;
 
-  color: #9b7cff;
+  background: transparent;
+
+  color: #818cf8;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
   cursor: pointer;
 }
 
-.message {
-  text-align: center;
-  margin-top: 15px;
-  color: #8effa0;
+.switch-btn:hover {
+  color: #a5b4fc;
 }
 
-/* ==========================
+
+/* =========================================
+   MAIN DASHBOARD
+========================================= */
+
+.app {
+  min-height: 100vh;
+
+  background: #0b1020;
+
+  color: #f8fafc;
+}
+
+
+/* =========================================
    NAVBAR
-========================== */
+========================================= */
 
 .navbar {
-  height: 75px;
+  width: 100%;
+
+  height: 72px;
+
+  padding: 0 7%;
+
+  background: #11182d;
+
+  border-bottom: 1px solid #252e49;
 
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
 
-  padding: 0 5%;
-
-  background: rgba(20, 16, 35, 0.9);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  justify-content: space-between;
 }
+
 
 .logo {
-  font-size: 30px;
+  font-size: 25px;
+
+  font-weight: 800;
+
+  color: #8b5cf6;
 }
+
 
 .nav-right {
   display: flex;
+
   align-items: center;
+
   gap: 20px;
 
-  color: #ccc;
+  color: #cbd5e1;
+
+  font-size: 14px;
+
+  font-weight: 600;
 }
+
 
 .logout-btn {
-  background: #ff4757;
-  color: white;
+  padding: 9px 17px;
 
-  border: none;
-  padding: 10px 18px;
+  background: #1b243d;
 
-  border-radius: 10px;
+  border: 1px solid #303b5c;
+
+  border-radius: 8px;
+
+  color: #cbd5e1;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
   cursor: pointer;
+
+  transition: 0.2s;
 }
 
-/* ==========================
-   DASHBOARD
-========================== */
+
+.logout-btn:hover {
+  background: #273354;
+
+  color: white;
+}
+
+
+/* =========================================
+   DASHBOARD CONTENT
+========================================= */
 
 .dashboard {
+  width: 88%;
+
   max-width: 1200px;
-  margin: auto;
-  padding: 40px 20px;
+
+  margin: 45px auto 70px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 28px;
 }
 
+
+/* =========================================
+   HERO CARD
+========================================= */
+
 .hero-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  min-height: 190px;
 
-  padding: 35px;
-
-  border-radius: 25px;
+  padding: 35px 40px;
 
   background:
     linear-gradient(
       135deg,
-      rgba(108, 60, 225, 0.4),
-      rgba(102, 126, 234, 0.15)
+      #171f3a,
+      #11182d
     );
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #293454;
+
+  border-radius: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  box-shadow:
+    0 15px 40px
+    rgba(0, 0, 0, 0.25);
 }
 
+
 .small-text {
-  color: #aaa;
+  color: #818cf8;
+
+  font-size: 14px;
+
   margin-bottom: 8px;
 }
 
+
 .hero-card h1 {
-  font-size: 35px;
+  color: white;
+
+  font-size: 32px;
+
+  margin-bottom: 8px;
 }
+
 
 .hero-card p {
-  color: #bbb;
-  margin-top: 8px;
+  color: #94a3b8;
+
+  font-size: 15px;
 }
 
+
+/* LEVEL */
+
 .level-badge {
-  width: 100px;
-  height: 100px;
+  width: 105px;
+
+  height: 105px;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
   display: flex;
+
   flex-direction: column;
-  justify-content: center;
+
   align-items: center;
 
-  background: linear-gradient(
-    135deg,
-    #6c3ce1,
-    #764ba2
-  );
+  justify-content: center;
 
-  box-shadow: 0 10px 30px rgba(108, 60, 225, 0.4);
+  box-shadow:
+    0 10px 30px
+    rgba(99, 102, 241, 0.35);
 }
+
 
 .level-badge span {
   font-size: 11px;
+
+  color: #ddd6fe;
 }
+
 
 .level-badge strong {
-  font-size: 35px;
+  font-size: 32px;
+
+  color: white;
 }
 
-/* ==========================
-   XP
-========================== */
+
+/* =========================================
+   XP CARD
+========================================= */
 
 .xp-card {
-  margin-top: 25px;
-
   padding: 25px;
 
-  background: rgba(255, 255, 255, 0.05);
+  background: #151d35;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #293454;
 
-  border-radius: 20px;
+  border-radius: 16px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, 0.2);
 }
+
 
 .xp-header {
   display: flex;
+
+  align-items: center;
+
   justify-content: space-between;
 
   margin-bottom: 12px;
 
-  color: #bbb;
+  color: #cbd5e1;
+
+  font-size: 14px;
+
+  font-weight: 600;
 }
+
 
 .xp-bar {
   width: 100%;
-  height: 12px;
 
-  background: #252136;
+  height: 10px;
+
+  background: #0b1020;
 
   border-radius: 20px;
+
   overflow: hidden;
 }
+
 
 .xp-progress {
   height: 100%;
 
-  background: linear-gradient(
-    90deg,
-    #6c3ce1,
-    #667eea
-  );
+  background:
+    linear-gradient(
+      90deg,
+      #6366f1,
+      #8b5cf6
+    );
 
   border-radius: 20px;
 
-  transition: width 0.5s;
+  transition: width 0.5s ease;
 }
 
-/* ==========================
+
+/* =========================================
    STATS
-========================== */
+========================================= */
 
 .stats-grid {
   display: grid;
@@ -336,45 +514,60 @@ input {
   grid-template-columns:
     repeat(4, 1fr);
 
-  gap: 20px;
-
-  margin-top: 25px;
+  gap: 18px;
 }
+
 
 .stat-card {
   padding: 25px;
 
+  background: #151d35;
+
+  border: 1px solid #293454;
+
+  border-radius: 16px;
+
   text-align: center;
 
-  background: rgba(255, 255, 255, 0.05);
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  border-radius: 20px;
-
-  transition: 0.3s;
+  transition: 0.25s;
 }
+
 
 .stat-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+
+  border-color: #6366f1;
+
+  box-shadow:
+    0 12px 30px
+    rgba(99, 102, 241, 0.12);
 }
+
 
 .stat-card span {
-  font-size: 30px;
+  font-size: 28px;
 }
+
 
 .stat-card h3 {
-  font-size: 28px;
-  margin: 8px 0;
+  margin: 9px 0 4px;
+
+  font-size: 25px;
+
+  color: #a5b4fc;
 }
+
 
 .stat-card p {
-  color: #999;
+  color: #94a3b8;
+
+  font-size: 13px;
 }
 
-/* ==========================
-   FEATURES
-========================== */
+
+/* =========================================
+   FEATURE CARDS
+========================================= */
 
 .feature-grid {
   display: grid;
@@ -383,73 +576,778 @@ input {
     repeat(4, 1fr);
 
   gap: 20px;
-
-  margin-top: 30px;
 }
+
 
 .feature-card {
-  padding: 25px;
+  padding: 28px;
 
-  background: rgba(255, 255, 255, 0.05);
+  background: #151d35;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #293454;
 
-  border-radius: 20px;
+  border-radius: 18px;
 
-  transition: 0.3s;
+  transition: 0.25s;
 }
+
 
 .feature-card:hover {
   transform: translateY(-5px);
 
-  border-color: #6c3ce1;
+  border-color: #6366f1;
+
+  box-shadow:
+    0 15px 35px
+    rgba(99, 102, 241, 0.12);
 }
+
 
 .feature-icon {
   font-size: 35px;
-  margin-bottom: 15px;
+
+  margin-bottom: 16px;
 }
 
+
 .feature-card h2 {
+  color: white;
+
+  font-size: 19px;
+
   margin-bottom: 10px;
 }
 
+
 .feature-card p {
-  color: #999;
+  min-height: 60px;
 
-  line-height: 1.5;
+  color: #94a3b8;
 
-  min-height: 70px;
+  font-size: 13px;
+
+  line-height: 1.6;
 }
+
 
 .feature-card button {
   width: 100%;
-  margin-top: 15px;
+
+  height: 42px;
+
+  margin-top: 18px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
 }
 
-/* ==========================
+
+.feature-card button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(99, 102, 241, 0.3);
+}
+
+
+/* =========================================
+   STUDY PLANNER
+========================================= */
+
+.planner-page {
+  min-height: 100vh;
+
+  padding-bottom: 70px;
+
+  background: #0b1020;
+
+  color: #f8fafc;
+}
+
+
+/* PLANNER HEADER */
+
+.planner-header {
+  width: 100%;
+
+  padding: 35px 7%;
+
+  background: #11182d;
+
+  border-bottom: 1px solid #252e49;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+}
+
+
+.back-button {
+  padding: 10px 18px;
+
+  background: #1b243d;
+
+  border: 1px solid #303b5c;
+
+  border-radius: 9px;
+
+  color: #cbd5e1;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.back-button:hover {
+  background: #273354;
+
+  color: white;
+
+  transform: translateX(-3px);
+}
+
+
+/* PLANNER TITLE */
+
+.planner-title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+
+.planner-icon {
+  width: 58px;
+
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  border-radius: 15px;
+
+  font-size: 28px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(99, 102, 241, 0.25);
+}
+
+
+.planner-title h1 {
+  color: white;
+
+  font-size: 30px;
+
+  margin-bottom: 7px;
+}
+
+
+.planner-title p {
+  color: #94a3b8;
+
+  font-size: 14px;
+}
+
+
+/* PLANNER CONTENT */
+
+.planner-content {
+  width: 90%;
+
+  max-width: 1050px;
+
+  margin: 45px auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 30px;
+}
+
+
+/* =========================================
+   PLAN YOUR STUDY
+========================================= */
+
+.add-task-card {
+  padding: 32px;
+
+  background: #151d35;
+
+  border: 1px solid #293454;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 12px 35px
+    rgba(0, 0, 0, 0.25);
+}
+
+
+.section-heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  margin-bottom: 30px;
+}
+
+
+.heading-icon {
+  width: 48px;
+
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #222c49;
+
+  border-radius: 12px;
+
+  font-size: 22px;
+}
+
+
+.section-heading h2 {
+  color: white;
+
+  font-size: 21px;
+
+  margin-bottom: 5px;
+}
+
+
+.section-heading p {
+  color: #94a3b8;
+
+  font-size: 14px;
+}
+
+
+/* TASK FORM */
+
+.task-form {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    200px
+    130px;
+
+  gap: 20px;
+
+  align-items: end;
+}
+
+
+.input-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+
+.input-group label {
+  color: #cbd5e1;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.input-group input {
+  width: 100%;
+
+  height: 46px;
+
+  padding: 0 14px;
+
+  background: #0b1020;
+
+  border: 1px solid #303b5c;
+
+  border-radius: 9px;
+
+  color: white;
+
+  font-size: 14px;
+
+  outline: none;
+}
+
+
+.input-group input::placeholder {
+  color: #64748b;
+}
+
+
+.input-group input:focus {
+  border-color: #6366f1;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(99, 102, 241, 0.12);
+}
+
+
+.input-group input[type="date"] {
+  color-scheme: dark;
+}
+
+
+/* ADD TASK BUTTON */
+
+.add-task-button {
+  height: 46px;
+
+  padding: 0 18px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition: 0.2s;
+}
+
+
+.add-task-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(99, 102, 241, 0.3);
+}
+
+
+/* MESSAGE */
+
+.planner-message {
+  margin-top: 20px;
+
+  padding: 12px 15px;
+
+  background: #172554;
+
+  border: 1px solid #3730a3;
+
+  border-radius: 9px;
+
+  color: #a5b4fc;
+
+  font-size: 13px;
+}
+
+
+/* =========================================
+   MY TASKS
+========================================= */
+
+.tasks-section {
+  min-height: 320px;
+
+  padding: 32px;
+
+  background: #151d35;
+
+  border: 1px solid #293454;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 12px 35px
+    rgba(0, 0, 0, 0.25);
+}
+
+
+.tasks-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding-bottom: 25px;
+
+  margin-bottom: 25px;
+
+  border-bottom: 1px solid #293454;
+}
+
+
+.tasks-header h2 {
+  color: white;
+
+  font-size: 21px;
+
+  margin-bottom: 6px;
+}
+
+
+.tasks-header p {
+  color: #94a3b8;
+
+  font-size: 14px;
+}
+
+
+/* TASK COUNT */
+
+.task-count {
+  min-width: 65px;
+
+  height: 55px;
+
+  padding: 0 12px;
+
+  background: #222c49;
+
+  border: 1px solid #3b4670;
+
+  border-radius: 12px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #a5b4fc;
+
+  font-size: 20px;
+
+  font-weight: 700;
+}
+
+
+.task-count span {
+  color: #818cf8;
+
+  font-size: 10px;
+
+  font-weight: 500;
+}
+
+
+/* TASK LIST */
+
+.tasks-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+
+/* TASK CARD */
+
+.task-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 18px 20px;
+
+  background: #11182d;
+
+  border: 1px solid #293454;
+
+  border-radius: 12px;
+
+  transition: 0.2s;
+}
+
+
+.task-card:hover {
+  background: #151e38;
+
+  border-color: #6366f1;
+
+  transform: translateY(-2px);
+}
+
+
+/* TASK STATUS */
+
+.task-status {
+  width: 40px;
+
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #202a48;
+
+  border: 1px solid #3b4670;
+
+  border-radius: 50%;
+
+  color: #818cf8;
+
+  font-size: 18px;
+}
+
+
+/* TASK DETAILS */
+
+.task-details {
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+.task-details h3 {
+  color: #f8fafc;
+
+  font-size: 15px;
+
+  margin-bottom: 6px;
+}
+
+
+.task-details p {
+  color: #94a3b8;
+
+  font-size: 12px;
+}
+
+
+/* ACTIONS */
+
+.task-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.complete-button {
+  padding: 8px 13px;
+
+  background: #052e16;
+
+  border: 1px solid #166534;
+
+  border-radius: 8px;
+
+  color: #4ade80;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+.delete-button {
+  width: 36px;
+
+  height: 36px;
+
+  background: #2b1117;
+
+  border: 1px solid #7f1d1d;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================
+   EMPTY TASK STATE
+========================================= */
+
+.empty-state {
+  min-height: 220px;
+
+  padding: 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background: #11182d;
+
+  border: 1px dashed #35415f;
+
+  border-radius: 14px;
+}
+
+
+.empty-icon {
+  font-size: 42px;
+
+  margin-bottom: 15px;
+}
+
+
+.empty-state h3 {
+  color: #f8fafc;
+
+  font-size: 17px;
+
+  margin-bottom: 8px;
+}
+
+
+.empty-state p {
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+
+/* =========================================
+   COMPLETED TASK
+========================================= */
+
+.task-completed {
+  background: #0d2119;
+
+  border-color: #166534;
+}
+
+
+.task-completed .task-status {
+  background: #16a34a;
+
+  border-color: #22c55e;
+
+  color: white;
+}
+
+
+.task-completed
+.task-details h3 {
+  color: #64748b;
+
+  text-decoration: line-through;
+}
+
+
+.completed-label {
+  color: #4ade80;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
    RESPONSIVE
-========================== */
+========================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
 
-  .stats-grid,
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
   .feature-grid {
     grid-template-columns:
       repeat(2, 1fr);
   }
 
+  .task-form {
+    grid-template-columns: 1fr;
+  }
+
+  .add-task-button {
+    width: 100%;
+  }
 }
 
+
 @media (max-width: 600px) {
-
-  .auth-card {
-    padding: 30px 20px;
-  }
-
-  .brand h1 {
-    font-size: 38px;
-  }
 
   .navbar {
     padding: 0 20px;
@@ -459,15 +1357,1608 @@ input {
     display: none;
   }
 
+  .dashboard {
+    width: 92%;
+
+    margin-top: 30px;
+  }
+
   .hero-card {
+    padding: 28px;
+
     flex-direction: column;
+
     align-items: flex-start;
+
     gap: 25px;
+  }
+
+  .hero-card h1 {
+    font-size: 26px;
   }
 
   .stats-grid,
   .feature-grid {
     grid-template-columns: 1fr;
+  }
+
+  .planner-header {
+    padding: 25px 5%;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .planner-content {
+    width: 92%;
+
+    margin-top: 30px;
+  }
+
+  .add-task-card,
+  .tasks-section {
+    padding: 22px;
+  }
+
+  .tasks-header {
+    align-items: flex-start;
+  }
+
+  .task-card {
+    flex-wrap: wrap;
+  }
+
+  .task-actions {
+    width: 100%;
+
+    justify-content: flex-end;
+  }
+
+  .auth-card {
+    padding: 30px 22px;
+  }
+}
+/* =========================================
+   CALENDAR PAGE
+========================================= */
+
+.calendar-page {
+  min-height: 100vh;
+
+  background: #0b1020;
+
+  color: #f8fafc;
+
+  padding-bottom: 70px;
+}
+
+
+/* HEADER */
+
+.calendar-header {
+  padding: 35px 7%;
+
+  background: #11182d;
+
+  border-bottom: 1px solid #252e49;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+}
+
+
+.calendar-title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+
+.calendar-icon {
+  width: 58px;
+
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
+
+  border-radius: 15px;
+
+  font-size: 28px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(99, 102, 241, 0.25);
+}
+
+
+.calendar-title h1 {
+  font-size: 30px;
+
+  color: white;
+
+  margin-bottom: 7px;
+}
+
+
+.calendar-title p {
+  font-size: 14px;
+
+  color: #94a3b8;
+}
+
+
+/* CONTENT */
+
+.calendar-content {
+  width: 90%;
+
+  max-width: 1050px;
+
+  margin: 45px auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+
+/* CALENDAR CARD */
+
+.calendar-card {
+  padding: 32px;
+
+  background: #151d35;
+
+  border: 1px solid #293454;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 12px 35px
+    rgba(0, 0, 0, 0.25);
+}
+
+
+/* MONTH NAVIGATION */
+
+.calendar-top {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+}
+
+
+.calendar-top h2 {
+  font-size: 22px;
+
+  color: white;
+}
+
+
+.month-button {
+  width: 42px;
+
+  height: 42px;
+
+  background: #222c49;
+
+  border: 1px solid #3b4670;
+
+  border-radius: 9px;
+
+  color: #cbd5e1;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.month-button:hover {
+  background: #303b5c;
+
+  color: white;
+}
+
+
+/* WEEKDAYS */
+
+.weekdays {
+  display: grid;
+
+  grid-template-columns:
+    repeat(7, 1fr);
+
+  gap: 8px;
+
+  margin-bottom: 8px;
+}
+
+
+.weekday {
+  padding: 12px;
+
+  text-align: center;
+
+  color: #818cf8;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+
+/* CALENDAR GRID */
+
+.calendar-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(7, 1fr);
+
+  gap: 8px;
+}
+
+
+/* DAY */
+
+.calendar-day {
+  min-height: 90px;
+
+  padding: 12px;
+
+  background: #11182d;
+
+  border: 1px solid #293454;
+
+  border-radius: 10px;
+
+  color: #cbd5e1;
+
+  transition: 0.2s;
+}
+
+
+.calendar-day:hover {
+  background: #1b243d;
+
+  border-color: #6366f1;
+}
+
+
+.calendar-day span {
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+
+/* TODAY */
+
+.calendar-day.today {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.25),
+      rgba(139, 92, 246, 0.15)
+    );
+
+  border: 2px solid #6366f1;
+
+  color: white;
+}
+
+
+.calendar-day.today span {
+  font-size: 16px;
+}
+
+
+.calendar-day.today small {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #a5b4fc;
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+
+/* TIP */
+
+.calendar-tip {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 22px 25px;
+
+  background: #151d35;
+
+  border: 1px solid #293454;
+
+  border-radius: 15px;
+}
+
+
+.tip-icon {
+  width: 45px;
+
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #222c49;
+
+  border-radius: 10px;
+
+  font-size: 22px;
+}
+
+
+.calendar-tip h3 {
+  color: white;
+
+  font-size: 16px;
+
+  margin-bottom: 5px;
+}
+
+
+.calendar-tip p {
+  color: #94a3b8;
+
+  font-size: 13px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .calendar-header {
+    padding: 25px 5%;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .calendar-content {
+    width: 92%;
+
+    margin-top: 30px;
+  }
+
+  .calendar-card {
+    padding: 18px;
+  }
+
+  .calendar-grid,
+  .weekdays {
+    gap: 4px;
+  }
+
+  .calendar-day {
+    min-height: 55px;
+
+    padding: 7px;
+  }
+
+  .calendar-day.today small {
+    display: none;
+  }
+
+  .weekday {
+    padding: 7px 2px;
+
+    font-size: 10px;
+  }
+
+}
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b1020;
+  color: #f8fafc;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+
+/* =========================================
+   PLANNER PAGE
+========================================= */
+
+.planner-page {
+  min-height: 100vh;
+  background: #0b1020;
+  color: #f8fafc;
+  padding-bottom: 60px;
+}
+
+
+/* =========================================
+   PLANNER HEADER
+========================================= */
+
+.planner-header {
+  width: 100%;
+  padding: 24px 7%;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  background: #0f162b;
+  border-bottom: 1px solid #202a45;
+}
+
+.back-button {
+  padding: 11px 18px;
+  border: 1px solid #303b5c;
+  border-radius: 10px;
+  background: #171f38;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.back-button:hover {
+  background: #222c4b;
+  border-color: #6366f1;
+  color: white;
+}
+
+
+/* =========================================
+   PLANNER HEADING
+========================================= */
+
+.planner-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.planner-heading-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1c2542;
+  border: 1px solid #343f63;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.planner-heading h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.planner-heading p {
+  margin: 7px 0 0;
+  color: #8490aa;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.planner-content {
+  width: 86%;
+  max-width: 1050px;
+  margin: 45px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+
+/* =========================================
+   CREATE TASK CARD
+========================================= */
+
+.planner-create-card {
+  background: #11182d;
+  border: 1px solid #252f4b;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.planner-section-title {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 35px;
+}
+
+.planner-title-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e2947;
+  border: 1px solid #303b5c;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.planner-section-title h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.planner-section-title p {
+  margin: 7px 0 0;
+  color: #8490aa;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.planner-form {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    190px
+    130px;
+
+  gap: 20px;
+  align-items: end;
+}
+
+.planner-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.planner-input-group label {
+  color: #aab4ca;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.planner-input-group input {
+  width: 100%;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  background: #0c1325;
+  border: 1px solid #303b5c;
+  border-radius: 10px;
+  color: white;
+  outline: none;
+  font-size: 13px;
+}
+
+.planner-input-group input::placeholder {
+  color: #59657d;
+}
+
+.planner-input-group input:focus {
+  border-color: #6366f1;
+  box-shadow:
+    0 0 0 3px
+    rgba(99, 102, 241, 0.1);
+}
+
+
+/* =========================================
+   ADD BUTTON
+========================================= */
+
+.planner-add-button {
+  height: 48px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  background: #6366f1;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.planner-add-button:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.planner-message {
+  margin: 18px 0 0;
+  color: #f87171;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   TASKS CARD
+========================================= */
+
+.planner-tasks-card {
+  background: #11182d;
+  border: 1px solid #252f4b;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow:
+    0 15px 40px
+    rgba(0, 0, 0, 0.2);
+}
+
+
+/* =========================================
+   TASK HEADER
+========================================= */
+
+.planner-tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.planner-tasks-header h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.planner-tasks-header p {
+  margin: 8px 0 0;
+  color: #8490aa;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.planner-summary {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.summary-box {
+  min-width: 80px;
+  padding: 12px 16px;
+  text-align: center;
+  background: #171f38;
+  border: 1px solid #2c3755;
+  border-radius: 11px;
+}
+
+.summary-box strong {
+  display: block;
+  font-size: 19px;
+  color: #a5b4fc;
+  margin-bottom: 4px;
+}
+
+.summary-box span {
+  display: block;
+  color: #7f8aa3;
+  font-size: 11px;
+}
+
+.completed-summary strong {
+  color: #4ade80;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.planner-empty {
+  padding: 60px 25px;
+  text-align: center;
+  background: #0c1325;
+  border: 1px dashed #303b5c;
+  border-radius: 14px;
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.planner-empty h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.planner-empty p {
+  margin: 0;
+  color: #69758e;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   TASK LIST
+========================================= */
+
+.planner-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+/* =========================================
+   TASK
+========================================= */
+
+.planner-task {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 72px;
+  padding: 16px 18px;
+  background: #0c1325;
+  border: 1px solid #252f4b;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+
+.planner-task:hover {
+  border-color: #46547a;
+  transform: translateY(-1px);
+}
+
+.planner-task.completed {
+  background: #0d1d19;
+  border-color: #1d543c;
+}
+
+
+/* =========================================
+   COMPLETE BUTTON
+========================================= */
+
+.task-complete-button {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid #4f5d87;
+  background: #171f38;
+  color: #a5b4fc;
+  font-size: 19px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.planner-task.completed
+.task-complete-button {
+  background: #166534;
+  border-color: #22c55e;
+  color: white;
+}
+
+
+/* =========================================
+   TASK DETAILS
+========================================= */
+
+.planner-task-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.planner-task-details h3 {
+  margin: 0 0 7px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #f1f5f9;
+  overflow-wrap: anywhere;
+}
+
+.planner-task-details p {
+  margin: 0;
+  color: #75819b;
+  font-size: 12px;
+}
+
+.planner-task.completed
+.planner-task-details h3 {
+  color: #64748b;
+  text-decoration: line-through;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.task-status {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border-radius: 7px;
+  background: #1c2542;
+  color: #a5b4fc;
+  font-size: 11px;
+}
+
+.planner-task.completed
+.task-status {
+  background: #14532d;
+  color: #4ade80;
+}
+
+
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.task-delete-button {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 9px;
+  background: #291a25;
+  color: #f87171;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.task-delete-button:hover {
+  background: #451a1a;
+}
+
+
+/* =========================================
+   CALENDAR PAGE
+========================================= */
+
+.calendar-page {
+  min-height: 100vh;
+  background: #0b1020;
+  color: #f8fafc;
+  padding-bottom: 60px;
+}
+
+
+/* =========================================
+   CALENDAR HEADER
+========================================= */
+
+.calendar-header {
+  width: 100%;
+  padding: 24px 7%;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  background: #0f162b;
+  border-bottom: 1px solid #202a45;
+}
+
+.calendar-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.calendar-heading-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1c2542;
+  border: 1px solid #343f63;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.calendar-heading h1 {
+  font-size: 26px;
+  margin: 0;
+}
+
+.calendar-heading p {
+  margin-top: 7px;
+  color: #8490aa;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   CALENDAR CONTENT
+========================================= */
+
+.calendar-content {
+  width: 86%;
+  max-width: 1050px;
+  margin: 45px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+
+/* =========================================
+   CALENDAR CARD
+========================================= */
+
+.calendar-card,
+.daily-progress-card,
+.calendar-tasks-card {
+  background: #11182d;
+  border: 1px solid #252f4b;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow:
+    0 15px 40px
+    rgba(0, 0, 0, 0.2);
+}
+
+
+/* =========================================
+   MONTH HEADER
+========================================= */
+
+.calendar-month-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.calendar-month-header h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.calendar-month-header span {
+  display: block;
+  color: #8490aa;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.month-arrow {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #303b5c;
+  background: #171f38;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.month-arrow:hover {
+  background: #6366f1;
+  border-color: #6366f1;
+}
+
+
+/* =========================================
+   WEEK DAYS
+========================================= */
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns:
+    repeat(7, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  color: #69758e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   CALENDAR GRID
+========================================= */
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(7, 1fr);
+  gap: 10px;
+}
+
+.calendar-day {
+  min-height: 90px;
+  padding: 12px;
+  background: #0c1325;
+  border: 1px solid #252f4b;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.calendar-day:hover {
+  border-color: #6366f1;
+  transform: translateY(-2px);
+}
+
+.calendar-day.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+
+.calendar-day.empty:hover {
+  transform: none;
+}
+
+.day-number {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   TODAY
+========================================= */
+
+.calendar-day.today {
+  border-color: #6366f1;
+  background: #171d3a;
+}
+
+.calendar-day.today
+.day-number {
+  color: #a5b4fc;
+}
+
+
+/* =========================================
+   SELECTED DATE
+========================================= */
+
+.calendar-day.selected {
+  border-color: #818cf8;
+  box-shadow:
+    0 0 0 2px
+    rgba(99, 102, 241, 0.2);
+}
+
+
+/* =========================================
+   DAY TASK INFO
+========================================= */
+
+.day-task-info {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.day-status {
+  min-width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.day-status.pending {
+  background: #312e81;
+  color: #a5b4fc;
+}
+
+.day-status.complete {
+  background: #14532d;
+  color: #4ade80;
+}
+
+
+/* =========================================
+   CALENDAR LEGEND
+========================================= */
+
+.calendar-legend {
+  display: flex;
+  gap: 25px;
+  margin-top: 25px;
+  color: #8490aa;
+  font-size: 12px;
+}
+
+.calendar-legend div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.today-dot {
+  background: #6366f1;
+}
+
+.task-dot {
+  background: #818cf8;
+}
+
+.complete-dot {
+  background: #22c55e;
+}
+
+
+/* =========================================
+   DAILY PROGRESS
+========================================= */
+
+.selected-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.selected-date-header h2 {
+  font-size: 21px;
+}
+
+.selected-date-header p {
+  margin-top: 8px;
+  color: #8490aa;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   PROGRESS CIRCLE
+========================================= */
+
+.progress-circle {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: #1c2542;
+  border: 2px solid #6366f1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-circle strong {
+  color: #a5b4fc;
+  font-size: 15px;
+}
+
+
+/* =========================================
+   PROGRESS BAR
+========================================= */
+
+.progress-bar-background {
+  width: 100%;
+  height: 8px;
+  background: #202a45;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 25px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #6366f1;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+
+/* =========================================
+   DAILY STATS
+========================================= */
+
+.daily-stats {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.daily-stat {
+  padding: 18px;
+  text-align: center;
+  background: #0c1325;
+  border: 1px solid #252f4b;
+  border-radius: 12px;
+}
+
+.daily-stat strong {
+  display: block;
+  font-size: 22px;
+  color: #a5b4fc;
+  margin-bottom: 6px;
+}
+
+.daily-stat strong.green {
+  color: #4ade80;
+}
+
+.daily-stat strong.yellow {
+  color: #facc15;
+}
+
+.daily-stat span {
+  color: #75819b;
+  font-size: 12px;
+}
+
+
+/* =========================================
+   CALENDAR TASKS
+========================================= */
+
+.calendar-tasks-card h2 {
+  font-size: 21px;
+  margin-bottom: 25px;
+}
+
+.calendar-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.calendar-task {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 70px;
+  padding: 15px 18px;
+  background: #0c1325;
+  border: 1px solid #252f4b;
+  border-radius: 14px;
+}
+
+.calendar-task.completed {
+  background: #0d1d19;
+  border-color: #1d543c;
+}
+
+.calendar-complete-button {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid #4f5d87;
+  background: #171f38;
+  color: #a5b4fc;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.calendar-task.completed
+.calendar-complete-button {
+  background: #166534;
+  border-color: #22c55e;
+  color: white;
+}
+
+.calendar-task-info {
+  flex: 1;
+}
+
+.calendar-task-info h3 {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.calendar-task-info p {
+  margin-top: 6px;
+  color: #75819b;
+  font-size: 12px;
+}
+
+.calendar-task.completed
+.calendar-task-info h3 {
+  color: #64748b;
+  text-decoration: line-through;
+}
+
+.calendar-task-status {
+  padding: 7px 12px;
+  background: #1c2542;
+  color: #a5b4fc;
+  border-radius: 7px;
+  font-size: 11px;
+}
+
+.calendar-task-status.done {
+  background: #14532d;
+  color: #4ade80;
+}
+
+
+/* =========================================
+   CALENDAR EMPTY
+========================================= */
+
+.calendar-empty {
+  padding: 45px 20px;
+  text-align: center;
+  background: #0c1325;
+  border: 1px dashed #303b5c;
+  border-radius: 14px;
+}
+
+.calendar-empty div {
+  font-size: 35px;
+  margin-bottom: 12px;
+}
+
+.calendar-empty h3 {
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.calendar-empty p {
+  color: #69758e;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   CALENDAR INSIGHT
+========================================= */
+
+.calendar-insight {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 25px;
+  background: #11182d;
+  border: 1px solid #252f4b;
+  border-radius: 16px;
+}
+
+.insight-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #291f18;
+  border-radius: 12px;
+  font-size: 23px;
+}
+
+.calendar-insight h3 {
+  font-size: 15px;
+}
+
+.calendar-insight p {
+  margin-top: 6px;
+  color: #8490aa;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 850px) {
+
+  .planner-form {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .planner-add-button {
+    width: 100%;
+  }
+
+  .planner-tasks-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .planner-summary {
+    width: 100%;
+  }
+
+  .summary-box {
+    flex: 1;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .planner-header,
+  .calendar-header {
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .planner-content,
+  .calendar-content {
+    width: 92%;
+    margin: 30px auto;
+    gap: 25px;
+  }
+
+  .planner-create-card,
+  .planner-tasks-card,
+  .calendar-card,
+  .daily-progress-card,
+  .calendar-tasks-card {
+    padding: 22px;
+    border-radius: 16px;
+  }
+
+  .planner-form {
+    grid-template-columns: 1fr;
+  }
+
+  .planner-tasks-header {
+    gap: 20px;
+  }
+
+  .planner-summary {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .summary-box {
+    min-width: 0;
+    padding: 10px 8px;
+  }
+
+  .planner-task,
+  .calendar-task {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .task-status,
+  .calendar-task-status {
+    display: none;
+  }
+
+  .calendar-grid {
+    gap: 5px;
+  }
+
+  .calendar-day {
+    min-height: 55px;
+    padding: 7px;
+  }
+
+  .calendar-weekdays {
+    gap: 5px;
+  }
+
+  .calendar-weekdays span {
+    font-size: 10px;
+  }
+
+  .day-number {
+    font-size: 12px;
+  }
+
+  .day-status {
+    min-width: 20px;
+    height: 20px;
+    font-size: 9px;
+  }
+
+  .calendar-legend {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .daily-stats {
+    gap: 8px;
+  }
+
+  .daily-stat {
+    padding: 12px 5px;
   }
 
 }
