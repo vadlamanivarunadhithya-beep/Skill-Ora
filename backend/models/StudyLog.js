@@ -1,21 +1,28 @@
 const mongoose = require("mongoose");
 
-const taskSchema = new mongoose.Schema(
+const studyLogSchema = new mongoose.Schema(
   {
-    text: {
+    topic: {
       type: String,
       required: true,
+      trim: true,
+    },
+
+    duration: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+
+    notes: {
+      type: String,
+      default: "",
       trim: true,
     },
 
     date: {
       type: String,
       required: true,
-    },
-
-    completed: {
-      type: Boolean,
-      default: false,
     },
 
     user: {
@@ -30,6 +37,6 @@ const taskSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model(
-  "Task",
-  taskSchema
+  "StudyLog",
+  studyLogSchema
 );

@@ -1,114 +1,340 @@
 const Task = require("../models/Task");
 
-// Get all tasks
+const {
+  addXP,
+  XP_REWARDS,
+} = require("../utils/xpSystem");
+
+
+// ========================================
+// GET TASKS
+// ========================================
+
 const getTasks = async (req, res) => {
   try {
+
+    const userId = req.user.id;
+
     const tasks = await Task.find({
-      user: req.userId
+      user: userId,
     }).sort({
-      createdAt: -1
+      date: 1,
+      createdAt: -1,
     });
 
     res.status(200).json(tasks);
 
   } catch (error) {
+
+    console.error(
+      "GET TASKS ERROR:",
+      error
+    );
+
     res.status(500).json({
-      message: "Failed to get tasks",
-      error: error.message
+      message: "Failed to load tasks",
+      error: error.message,
     });
+
   }
 };
 
-// Create task
+
+// ========================================
+// CREATE TASK
+// ========================================
+
 const createTask = async (req, res) => {
   try {
-    const { text, date } = req.body;
+
+    const {
+      text,
+      date,
+    } = req.body;
+
+
+    // Validate input
 
     if (!text || !date) {
+
       return res.status(400).json({
-        message: "Task text and date are required"
+        message:
+          "Task text and date are required",
       });
+
     }
 
+
+    // Create task
+
     const task = await Task.create({
-      user: req.userId,
-      text,
-      date
+
+      text:
+        text.trim(),
+
+      date:
+        date,
+
+      completed:
+        false,
+
+      user:
+        req.user.id,
+
     });
 
+
+    // Send response
+
     res.status(201).json({
-      message: "Task created successfully",
-      task
+
+      message:
+        "Task created successfully",
+
+      task:
+        task,
+
     });
 
   } catch (error) {
+
+    console.error(
+      "CREATE TASK ERROR:",
+      error
+    );
+
     res.status(500).json({
-      message: "Failed to create task",
-      error: error.message
+
+      message:
+        "Failed to create task",
+
+      error:
+        error.message,
+
     });
+
   }
 };
 
-// Complete / uncomplete task
-const completeTask = async (req, res) => {
+
+// ========================================
+// COMPLETE / UNCOMPLETE TASK
+// ========================================
+
+const completeTask = async (
+  req,
+  res
+) => {
+
   try {
+
+    // Find task belonging to
+    // logged-in user
+
     const task = await Task.findOne({
-      _id: req.params.id,
-      user: req.userId
+
+      _id:
+        req.params.id,
+
+      user:
+        req.user.id,
+
     });
 
+
+    // Check task
+
     if (!task) {
+
       return res.status(404).json({
-        message: "Task not found"
+
+        message:
+          "Task not found",
+
       });
+
     }
 
-    task.completed = !task.completed;
+
+    // ====================================
+    // CHECK OLD STATUS
+    // ====================================
+
+    const wasCompleted =
+      task.completed;
+
+
+    // ====================================
+    // TOGGLE TASK STATUS
+    // ====================================
+
+    task.completed =
+      !task.completed;
+
+
+    // Save task
 
     await task.save();
 
-    res.status(200).json({
-      message: "Task updated successfully",
-      task
-    });
 
-  } catch (error) {
-    res.status(500).json({
-      message: "Failed to update task",
-      error: error.message
-    });
-  }
-};
+    // ====================================
+    // XP RESULT
+    // ====================================
 
-// Delete task
-const deleteTask = async (req, res) => {
-  try {
-    const task = await Task.findOneAndDelete({
-      _id: req.params.id,
-      user: req.userId
-    });
+    let xpResult = null;
 
-    if (!task) {
-      return res.status(404).json({
-        message: "Task not found"
-      });
+
+    // ====================================
+    // AWARD XP WHEN TASK IS COMPLETED
+    // ====================================
+
+    if (
+      !wasCompleted &&
+      task.completed
+    ) {
+
+      xpResult = await addXP(
+
+        req.user.id,
+
+        XP_REWARDS.TASK_COMPLETED
+
+      );
+
+
+      // Show XP result
+      // in backend terminal
+
+      console.log(
+        "⭐ XP AWARDED:",
+        xpResult
+      );
+
     }
 
+
+    // ====================================
+    // RESPONSE
+    // ====================================
+
     res.status(200).json({
-      message: "Task deleted successfully"
+
+      message:
+        "Task status updated successfully",
+
+      task:
+        task,
+
+      xp:
+        xpResult,
+
     });
 
+
   } catch (error) {
+
+    console.error(
+      "COMPLETE TASK ERROR:",
+      error
+    );
+
     res.status(500).json({
-      message: "Failed to delete task",
-      error: error.message
+
+      message:
+        "Failed to update task",
+
+      error:
+        error.message,
+
     });
+
   }
 };
 
+
+// ========================================
+// DELETE TASK
+// ========================================
+
+const deleteTask = async (
+  req,
+  res
+) => {
+
+  try {
+
+    // Find and delete task
+    // belonging to logged-in user
+
+    const task =
+      await Task.findOneAndDelete({
+
+        _id:
+          req.params.id,
+
+        user:
+          req.user.id,
+
+      });
+
+
+    // Check task
+
+    if (!task) {
+
+      return res.status(404).json({
+
+        message:
+          "Task not found",
+
+      });
+
+    }
+
+
+    // Response
+
+    res.status(200).json({
+
+      message:
+        "Task deleted successfully",
+
+    });
+
+
+  } catch (error) {
+
+    console.error(
+      "DELETE TASK ERROR:",
+      error
+    );
+
+    res.status(500).json({
+
+      message:
+        "Failed to delete task",
+
+      error:
+        error.message,
+
+    });
+
+  }
+};
+
+
+// ========================================
+// EXPORT CONTROLLERS
+// ========================================
+
 module.exports = {
+
   getTasks,
+
   createTask,
+
   completeTask,
-  deleteTask
+
+  deleteTask,
+
 };

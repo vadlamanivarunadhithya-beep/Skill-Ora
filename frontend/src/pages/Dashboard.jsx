@@ -1,8 +1,83 @@
+import { useEffect, useState } from "react";
+
 function Dashboard({
   user,
   onNavigate,
   onLogout,
 }) {
+  const [currentUser, setCurrentUser] = useState(user);
+
+  // ========================================
+  // GET LATEST USER DATA
+  // ========================================
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          return;
+        }
+
+        const response = await fetch(
+          "http://localhost:5000/api/auth/me",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          console.error("Failed to fetch latest user data");
+          return;
+        }
+
+        const data = await response.json();
+
+        const latestUser = data.user || data;
+
+        setCurrentUser(latestUser);
+      } catch (error) {
+        console.error("USER DATA ERROR:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  // ========================================
+  // USER DATA
+  // ========================================
+
+  const displayUser = currentUser || user;
+
+  const level = displayUser?.level || 1;
+
+  const xp = displayUser?.xp || 0;
+
+  // ========================================
+  // XP CALCULATION
+  // ========================================
+
+  const requiredXP = level * 100;
+
+  const remainingXP = Math.max(
+    requiredXP - xp,
+    0
+  );
+
+  const xpProgress = Math.min(
+    (xp / requiredXP) * 100,
+    100
+  );
+
+  // ========================================
+  // RETURN
+  // ========================================
+
   return (
     <div className="app">
 
@@ -19,7 +94,7 @@ function Dashboard({
         <div className="nav-right">
 
           <span>
-            Welcome, {user.displayName}
+            Welcome, {displayUser?.displayName}
           </span>
 
           <button
@@ -40,7 +115,10 @@ function Dashboard({
 
       <main className="dashboard">
 
-        {/* HERO */}
+
+        {/* =========================
+            HERO CARD
+        ========================= */}
 
         <section className="hero-card">
 
@@ -51,7 +129,7 @@ function Dashboard({
             </p>
 
             <h1>
-              Hey {user.displayName}!
+              Hey {displayUser?.displayName}!
             </h1>
 
             <p>
@@ -68,7 +146,7 @@ function Dashboard({
             </span>
 
             <strong>
-              {user.level || 1}
+              {level}
             </strong>
 
           </div>
@@ -77,7 +155,7 @@ function Dashboard({
 
 
         {/* =========================
-            XP
+            XP CARD
         ========================= */}
 
         <section className="xp-card">
@@ -85,31 +163,39 @@ function Dashboard({
           <div className="xp-header">
 
             <span>
-              Level {user.level || 1}
+              Level {level}
             </span>
 
             <span>
-              {user.xp || 0} / {(user.level || 1) * 100} XP
+              {xp} / {requiredXP} XP
             </span>
 
           </div>
 
+
+          {/* XP PROGRESS BAR */}
 
           <div className="xp-bar">
 
             <div
               className="xp-progress"
               style={{
-                width: `${Math.min(
-                  ((user.xp || 0) /
-                    ((user.level || 1) * 100)) *
-                    100,
-                  100
-                )}%`,
+                width: `${xpProgress}%`,
               }}
             ></div>
 
           </div>
+
+
+          {/* XP NEEDED */}
+
+          <p className="xp-needed">
+
+            {remainingXP > 0
+              ? `${remainingXP} XP needed for Level ${level + 1}`
+              : "🎉 Level Up!"}
+
+          </p>
 
         </section>
 
@@ -120,6 +206,9 @@ function Dashboard({
 
         <section className="stats-grid">
 
+
+          {/* TASKS DONE */}
+
           <div className="stat-card">
 
             <span>
@@ -127,7 +216,7 @@ function Dashboard({
             </span>
 
             <h3>
-              {user.completedTasks || 0}
+              {displayUser?.completedTasks || 0}
             </h3>
 
             <p>
@@ -136,6 +225,8 @@ function Dashboard({
 
           </div>
 
+
+          {/* CARDS COLLECTED */}
 
           <div className="stat-card">
 
@@ -154,6 +245,8 @@ function Dashboard({
           </div>
 
 
+          {/* DAY STREAK */}
+
           <div className="stat-card">
 
             <span>
@@ -161,7 +254,7 @@ function Dashboard({
             </span>
 
             <h3>
-              {user.streak || 0}
+              {displayUser?.streak || 0}
             </h3>
 
             <p>
@@ -170,6 +263,8 @@ function Dashboard({
 
           </div>
 
+
+          {/* FRIENDS */}
 
           <div className="stat-card">
 
@@ -281,7 +376,7 @@ function Dashboard({
           </div>
 
 
-          {/* COLLECTION */}
+          {/* CARD COLLECTION */}
 
           <div className="feature-card">
 

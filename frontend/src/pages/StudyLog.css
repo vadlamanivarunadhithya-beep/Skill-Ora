@@ -1,0 +1,452 @@
+/* ========================================
+   STUDY LOG PAGE
+======================================== */
+
+.study-log-page {
+  min-height: 100vh;
+  background: #0f172a;
+  color: #f8fafc;
+  padding-bottom: 60px;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.study-log-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 10px;
+}
+
+.back-button {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-bottom: 24px;
+  transition: 0.2s ease;
+}
+
+.back-button:hover {
+  color: #ffffff;
+  transform: translateX(-3px);
+}
+
+.study-log-title {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.study-log-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  border: 1px solid #334155;
+}
+
+.study-log-title h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.study-log-title p {
+  margin: 7px 0 0;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+
+/* ========================================
+   MAIN CONTAINER
+======================================== */
+
+.study-log-container {
+  max-width: 1100px;
+  margin: 30px auto 0;
+  padding: 0 24px;
+}
+
+
+/* ========================================
+   FORM CARD
+======================================== */
+
+.study-log-form-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.section-heading > span {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.section-heading p {
+  margin: 5px 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+
+/* ========================================
+   FORM
+======================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 15px;
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+  font-family: inherit;
+  transition: 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #64748b;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-group small {
+  color: #64748b;
+  font-size: 12px;
+}
+
+
+/* ========================================
+   TWO COLUMN FORM
+======================================== */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+
+/* ========================================
+   ERROR
+======================================== */
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+
+/* ========================================
+   ADD BUTTON
+======================================== */
+
+.add-study-button {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 20px;
+  background: #6366f1;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.add-study-button:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+}
+
+.add-study-button:active {
+  transform: translateY(0);
+}
+
+
+/* ========================================
+   STATS
+======================================== */
+
+.study-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.stat-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.stat-card > span {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+}
+
+.stat-card strong {
+  display: block;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.stat-card p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+
+/* ========================================
+   HISTORY
+======================================== */
+
+.study-history {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  padding: 28px;
+}
+
+.history-header h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.history-header p {
+  margin: 7px 0 25px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+
+/* ========================================
+   STUDY LOG LIST
+======================================== */
+
+.study-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.study-log-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  transition: 0.2s ease;
+}
+
+.study-log-item:hover {
+  border-color: #475569;
+  transform: translateY(-1px);
+}
+
+.log-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+}
+
+.log-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.log-content h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: #f8fafc;
+}
+
+.log-meta {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.log-notes {
+  margin: 12px 0 0;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.delete-log-button {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 17px;
+  padding: 5px;
+  border-radius: 7px;
+  transition: 0.2s ease;
+}
+
+.delete-log-button:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.empty-state {
+  text-align: center;
+  padding: 55px 20px;
+  color: #94a3b8;
+}
+
+.empty-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 16px;
+  border-radius: 16px;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.empty-state h3 {
+  margin: 0 0 8px;
+  color: #e2e8f0;
+  font-size: 18px;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 700px) {
+
+  .study-log-header,
+  .study-log-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .study-log-title h1 {
+    font-size: 26px;
+  }
+
+  .study-log-form-card,
+  .study-history {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .study-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .study-log-item {
+    padding: 15px;
+  }
+
+  .log-meta {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+}
