@@ -21,7 +21,7 @@ function Dashboard({
         }
 
         const response = await fetch(
-          "http://localhost:5000/api/auth/me",
+          "https://skill-ora.onrender.com/api/auth/me",
           {
             method: "GET",
             headers: {

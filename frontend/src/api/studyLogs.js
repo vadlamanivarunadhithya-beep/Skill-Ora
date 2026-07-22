@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  "http://localhost:5000/api/study-logs";
+  "https://skill-ora.onrender.com/api/study-logs";
 
 
 // ========================================
