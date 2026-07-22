@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
@@ -7,64 +8,78 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true,
-      lowercase: true
     },
 
     password: {
       type: String,
-      required: true
-    },
-
-    displayName: {
-      type: String,
       required: true,
-      trim: true
     },
 
-    friends: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-      }
-    ],
-
-    friendRequests: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-      }
-    ],
+    // ================================
+    // XP SYSTEM
+    // ================================
 
     xp: {
       type: Number,
-      default: 0
+      default: 0,
     },
 
     level: {
       type: Number,
-      default: 1
+      default: 1,
     },
-
-    completedTasks: {
-      type: Number,
-      default: 0
-    },
-
-    streak: {
-      type: Number,
-      default: 0
-    },
-
-    lastStudyDate: {
-      type: Date,
-      default: null
-    }
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
-const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+// ================================
+// HASH PASSWORD BEFORE SAVING
+// ================================
+
+userSchema.pre(
+  "save",
+  async function (next) {
+
+    // If password hasn't changed,
+    // don't hash it again
+
+    if (!this.isModified("password")) {
+      return next();
+    }
+
+    const salt =
+      await bcrypt.genSalt(10);
+
+    this.password =
+      await bcrypt.hash(
+        this.password,
+        salt
+      );
+
+    next();
+  }
+);
+
+
+// ================================
+// CHECK PASSWORD
+// ================================
+
+userSchema.methods.comparePassword =
+  async function (enteredPassword) {
+
+    return await bcrypt.compare(
+      enteredPassword,
+      this.password
+    );
+  };
+
+
+module.exports =
+  mongoose.model(
+    "User",
+    userSchema
+  );
